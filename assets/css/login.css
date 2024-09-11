@@ -1,0 +1,109 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Varela Round", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+/* Body styling */
+body {
+    font-family: 'Inter', sans-serif;
+ 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    
+}
+
+/* Form container styling */
+form {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Input fields and labels */
+label {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 8px;
+    display: inline-block;
+}
+
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: #f9f9f9;
+}
+
+/* Input hover/focus effects */
+input[type="email"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color:  rgb(141, 92, 195);
+    background-color: #fff;
+}
+
+/* Submit button styling */
+input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: rgb(141, 92, 195);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color:  rgb(141, 92, 195);
+}
+
+/* Error and success message styles */
+.error {
+    color: #e74c3c;
+    background-color: #f8d7da;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.success {
+    color: #28a745;
+    background-color: #d4edda;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #c3e6cb;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.error_messages{
+    color: #dc2626;
+    font-size: 0.75rem;
+    display: block;
+    margin-top: 0.25rem;
+    height: 25px;
+}
+

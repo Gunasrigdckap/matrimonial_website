@@ -1,5 +1,5 @@
 <?php
-$config = require_once(__DIR__ . '/../config.php');
+$config = require(__DIR__ . '/../config.php');
 
 
 class dbConnection {
