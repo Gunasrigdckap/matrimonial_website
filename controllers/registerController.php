@@ -2,9 +2,9 @@
 require __DIR__ . '/../models/DB.php';
 require __DIR__ . '/../models/registermodel.php';
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 
 class RegisterController {
     private $registerModel;
@@ -26,15 +26,21 @@ class RegisterController {
             $dateOfBirth = $_POST['date_of_birth'];
 
             // Insert the user data via the model
-            if ($this->registerModel->insertUser($firstName, $lastName, $password, $email, $profileFor, $phoneNumber, $gender, $dateOfBirth)) {
-                header("Location: /login.php?success=registered");
-                exit();
+            $newRegisterId = $this->registerModel->insertUser($firstName, $lastName, $password, $email, $profileFor, $phoneNumber, $gender, $dateOfBirth);
+            
+            if ($newRegisterId) {
+                // Start the session and store the register_id
+                session_start();
+                $_SESSION['register_id'] = $newRegisterId;  // Store register_id in the session
+
+                // Redirect to the profile page
+                header("Location: /profile.php");
+                exit();  // This ensures the script stops after the redirect
             } else {
                 echo "Error occurred during registration!";
             }
         }
     }
-    
 }
 
 // Initialize and run controller logic

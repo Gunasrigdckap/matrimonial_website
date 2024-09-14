@@ -14,6 +14,7 @@ class Register
         
         $stmt = $this->conn->prepare($query);
         
+        // Bind the parameters
         $stmt->bindParam(':firstName', $firstName);
         $stmt->bindParam(':lastName', $lastName);
         $stmt->bindParam(':password', $password);
@@ -23,7 +24,12 @@ class Register
         $stmt->bindParam(':gender', $gender);
         $stmt->bindParam(':dateOfBirth', $dateOfBirth);
     
-        return $stmt->execute();
+        // Execute the query
+        if ($stmt->execute()) {
+            // Return the last inserted ID
+            return $this->conn->lastInsertId();
+        } else {
+            return false;
+        }
     }
-    
 }

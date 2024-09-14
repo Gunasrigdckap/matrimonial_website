@@ -1,99 +1,82 @@
 <?php
-// require("./models/DB.php");
-// require("./register.php");
 
-// $database = new dbConnection($config);
-// $conn = $database->getConnection();
+
+session_start();
+require __DIR__ . '/models/DB.php';
+require __DIR__ . '/controllers/userController.php';
+$config = require(__DIR__ . '/config.php');
+
+$db = new dbConnection($config); 
+$conn = $db->getConnection(); 
+
+$userid=$_SESSION["register_id"];
+// Fetch user data
+$profileModel = new UserController($conn);
+$usersData = $profileModel->displayUsers();
+
+
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>All Registered Users</title>
     <link rel="stylesheet" href="/assets/css/index.css">
+    <!-- Include SweetAlert CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 </head>
 <body>
-<nav class="navbar">
-    <div class="container">
-        <a href="#" class="logo">
-            <span class="logo-text">WedBliss</span>
-        </a>
-        <div class="menu">
-            <input type="text" id="search-navbar" class="search-input" placeholder="Search...">
-            <ul class="nav-links">
-                <li><a href="#" class="nav-link active">Home</a></li>
-                <li><a href="#" class="nav-link">About</a></li>
-                <li><a href="/register.php" class="nav-link">Register</a></li>
-                <li><a href="/login.php" class="nav-link">Login</a></li>
-            </ul>
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="logo">
+                <span class="logo-text">WedBliss</span>
+            </a>
+            <div class="menu">
+                <input type="text" id="search-navbar" class="search-input" placeholder="Search...">
+                <ul class="nav-links">
+                    <li><a href="#" class="nav-link active">Home</a></li>
+                    <li><a href="#" class="nav-link">About</a></li>
+                    <?php if (!$userid): ?>
+                        <li><a href="/register.php" class="nav-link">Register</a></li>
+                        <li><a href="/login.php" class="nav-link">Login</a></li>
+                    <?php else: ?>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link-profile-icon">
+                                <img src="/uploads/profile_icon.jpg" alt="Profile Icon" style="width: 24px; height: 24px;">
+                            </a>
+                            <div class="dropdown-menu">
+                                <a href="/profile.php" class="dropdown-item">Profile</a>
+                                <a href="/logout.php" class="dropdown-item">Logout</a>
+                            </div>
+                        </li>
+                    <?php endif; ?>
+                </ul>
+            </div>
         </div>
+    </nav>
+
+    <div class="slogan_container">
+        <h1 class="matrimonial_slogan">Discover love, embrace the journey,<br>
+            Together, we'll build your future.</h1>
     </div>
-</nav>
 
-<div class="slogan_container">
-    <h1 class="matrimonial_slogan">Discover love, embrace the journey,<br>
-Together, we'll build your future.</h1>
-</div>
-<div class="matrimonial-form">
-    <form>
-        <div class="form-group">
-            <label for="gender">I'm looking for a</label>
-            <select id="gender" name="gender">
-                <option value="Woman">Woman</option>
-                <option value="Man">Man</option>
-            </select>
-        </div>
+    <div class="users-container">
+        <?php if (!empty($usersData)): ?>
+            <?php foreach ($usersData as $user): ?>
+                <div class="user-card">
+                    <h2><?php echo htmlspecialchars($user['name']); ?></h2>
+                    <p><strong>Age:</strong> <?php echo htmlspecialchars($user['age']); ?></p>
+                    <p><strong>Religion:</strong> <?php echo htmlspecialchars($user['religion']); ?></p>
+                    <p><strong>Mother Tongue:</strong> <?php echo htmlspecialchars($user['mother_tongue']); ?></p>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p></p>
+        <?php endif; ?>
+    </div>
 
-        <div class="form-group">
-            <label for="age">Aged</label>
-            <select id="age-from" name="age-from">
-                <option value="20">20</option>
-                <option value="21">21</option>
-                <option value="22">22</option>
-                <option value="23">23</option>
-                <option value="24">24</option>
-                <option value="25">25</option>
-            </select>
-            <span>to</span>
-            <select id="age-to" name="age-to">
-                <option value="25">25</option>
-                <option value="26">26</option>
-                <option value="27">27</option>
-                <option value="28">28</option>
-                <option value="29">29</option>
-                <option value="30">30</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="religion">Of religion</label>
-            <select id="religion" name="religion">
-                <option value="">Select</option>
-                <option value="Hindu">Hindu</option>
-                <option value="Christian">Christian</option>
-                <option value="Muslim">Muslim</option>
-                <option value="Jewish">Jewish</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="language">And mother tongue</label>
-            <select id="language" name="language">
-                <option value="">Select</option>
-                <option value="Tamil">Tamil</option>
-                <option value="Telugu">Telugu</option>
-                <option value="English">English</option>
-                <option value="Spanish">Spanish</option>
-                <option value="Hindi">Hindi</option>
-                <option value="Arabic">Arabic</option>
-            </select>
-        </div>
-
-        <button type="submit" class="btn-primary">Let's Begin</button>
-    </form>
-</div>
-
+    <!-- Include SweetAlert JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 </body>
 </html>

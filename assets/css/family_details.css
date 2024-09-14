@@ -1,0 +1,108 @@
+/* Importing Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
+/* Universal reset and font styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Varela Round", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* Form container */
+form {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 50px;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two-column layout */
+    gap: 20px;
+    background-color: #f9f9f9; /* Light background */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Label styling */
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333; /* Darker text color */
+}
+
+/* Input and select fields styling */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="date"],
+input[type="number"],
+textarea,
+select {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    background-color: #fff;
+    transition: border-color 0.3s ease-in-out; /* Smooth focus transition */
+}
+
+/* Focused input field styling */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: rgb(141, 92, 195); /* Customize border color */
+    background-color: #fefefe; /* Slight color change on focus */
+}
+
+/* Gender group layout */
+.gender-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Submit button styling */
+.profile_button {
+    grid-column: span 2; /* Full-width button */
+    padding: 12px;
+    width: 30%;
+    background-color: rgb(141, 92, 195);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out; /* Smooth hover effect */
+}
+
+input[type="submit"]:hover {
+    background-color: rgb(203, 154, 255); /* Lighter on hover */
+}
+
+/* Error message styling */
+.error_messages {
+    color: #dc2626;
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+    display: block;
+    height: 5px;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    form {
+        grid-template-columns: 1fr; /* Single-column layout for small screens */
+        padding: 20px;
+    }
+
+    .profile_button {
+        width: 100%; /* Full-width submit button on small screens */
+    }
+}

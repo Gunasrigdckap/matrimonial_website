@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Varela Round", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+form {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 50px;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns */
+    gap: 20px;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="date"],
+input[type="number"],
+textarea,
+select {
+    width: 90%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.gender-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: rgb(141, 92, 195); /* Customize the border color */
+    background-color: #fff; /* Customize the background color */
+}
+
+.profile_button {
+    grid-column: span 3; 
+    padding: 10px;
+    width: 30%;
+    background-color: rgb(141, 92, 195);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: rgb(203, 154, 255);
+}
+
+.error_messages {
+    color: #dc2626;
+    font-size: 0.75rem;
+    display: block;
+    margin-top: 0.25rem;
+    height: 5px;
+}
+

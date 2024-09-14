@@ -20,8 +20,8 @@ class LoginController {
                print_r($user);
                 if ($user) {
                     // Successful login
-                    $_SESSION['user_id'] = $user['user_id'];
-                    $_SESSION['email'] = $user['user_email'];
+                    $_SESSION['register_id'] = $user['register_id'];
+                   
                     header("Location: /index.php"); // Redirect to dashboard or any protected page
                     exit();
                 } else {

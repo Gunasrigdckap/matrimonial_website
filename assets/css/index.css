@@ -1,146 +1,127 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
-
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: "Varela Round", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  }
-  
-  body {
-    font-family: 'Inter', sans-serif;
-    /* background-color: #f0f2f5; */
-    height: 100vh;
-    margin: 0;
-    background-image: url('/uploads/matri.jpg');
-    background-size: cover; 
-    background-position: center; 
-    background-repeat: no-repeat; 
+    font-weight: 400;
+    font-style: normal;
 }
 
-  
-  .navbar {
+body {
+    font-family: 'Inter', sans-serif;
+    height: 100vh;
+    margin: 0;
+    background-image: url('/uploads/couple-cafe.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.navbar {
     background-color: #ffffff;
     border-bottom: 1px solid #e0e0e0;
-  }
-  
-  .container {
+}
+
+.container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
     max-width: 1200px;
     margin: 0 auto;
-  }
-  
-  .logo {
+}
+
+.logo {
     display: flex;
     align-items: center;
     text-decoration: none;
-  }
-  
-  .logo-img {
-    height: 30px;
-    margin-right: 10px;
-  }
-  
-  .logo-text {
+
+}
+
+.logo-text {
     font-size: 1.5rem;
     font-weight: 600;
     color: rgb(141, 92, 195);
-  }
-  
-  .menu {
+}
+
+.menu {
     display: flex;
     align-items: center;
-  }
-  
-  .search-input {
+}
+
+.search-input {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
     margin-right: 20px;
     outline: none;
-  }
-  
-  .nav-links {
+}
+
+.nav-links {
     list-style: none;
     display: flex;
     gap: 15px;
-  }
-  
-  .nav-link {
-    padding: 8px 16px;
+}
+
+.nav-link {
     text-decoration: none;
     color: rgb(141, 92, 195);
     border-radius: 4px;
     transition: background-color 0.3s;
-  }
-  
-  .nav-link:hover {
-    background-color: #f0f0f0;
-  }
-  
-  .nav-link.active {
+}
+
+.nav-link.active {
     background-color: rgb(141, 92, 195);
+    padding: 8px;
     color: white;
-  }
- input[type="text"]:focus {
+}
+
+input[type="text"]:focus {
     outline: none;
-    border-color:  rgb(141, 92, 195);
+    border-color: rgb(141, 92, 195);
     background-color: #fff;
 }
 
-.matrimonial_slogan{
-  color: white;
-  text-align: center;
-  margin-top: 20%;
+.matrimonial_slogan {
+    color: white;
+    text-align: center;
+    margin-top: 20%;
 }
 
-.matrimonial-form {
+.users-container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    margin-top: 20px;
+    padding: 20px;
 }
 
-form {
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 20px;
+.user-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    padding: 20px;
+    width: 250px;
+    box-sizing: border-box;
+    text-align: center;
 }
 
-.form-group {
-    margin-bottom: 15px;
-}
-
-label {
-    display: block;
-    font-size: 1rem;
+.user-card h2 {
+    margin: 0 0 10px;
+    font-size: 1.5em;
     color: #333;
-    margin-bottom: 5px;
 }
 
-select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 1rem;
+.user-card p {
+    margin: 5px 0;
+    font-size: 1em;
+    color: #555;
 }
 
-select:focus {
-    border-color: rgb(141, 92, 195);
-    outline: none;
-}
-
-span {
-    margin: 0 10px;
-    font-size: 1rem;
+.user-card p strong {
     color: #333;
 }
 
@@ -160,66 +141,50 @@ button.btn-primary {
 
 button.btn-primary:hover {
     background-color: rgb(111, 72, 175);
-
-}
-.matrimonial-form {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
 }
 
-form {
-  display: flex;
-  align-items: center;
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
 
-.form-group {
-  display: flex;
-  align-items: center;
-  margin-right: 20px; 
-}
 
-label {
-  margin-right: 10px;
-  font-size: 1rem;
-  color: #333;
-}
-
-select {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
-  margin-right: 10px;
-  cursor: pointer;
-}
-
-select:focus {
-  border-color: rgb(141, 92, 195);
-  outline: none;
-}
-
-span {
-  margin: 0 10px;
-  font-size: 1rem;
-  color: #333;
-}
-
-button.btn-primary {
-  padding: 10px;
-  background-color: rgb(141, 92, 195);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-button.btn-primary:hover {
-  background-color: rgb(111, 72, 175);
-}
+/* Style for the dropdown menu container */
+.nav-item {
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* Style for the profile icon link */
+  .profile-icon {
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Style for the dropdown menu */
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    z-index: 1000;
+    padding: 8px 0;
+  }
+  
+  /* Style for each dropdown item */
+  .dropdown-item {
+    display: block;
+    padding: 8px 16px;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  
+  .dropdown-item:hover {
+    background-color: #f0f0f0;
+    color: #000;
+  }
+  
+  /* Show the dropdown menu when hovering over the profile icon */
+  .nav-item:hover .dropdown-menu {
+    display: block;
+  }
