@@ -1,6 +1,5 @@
 <?php
 
-
 session_start();
 require __DIR__ . '/models/DB.php';
 require __DIR__ . '/controllers/userController.php';
@@ -9,11 +8,10 @@ $config = require(__DIR__ . '/config.php');
 $db = new dbConnection($config); 
 $conn = $db->getConnection(); 
 
-$userid=$_SESSION["register_id"];
+$userid = isset($_SESSION["register_id"]) ? $_SESSION["register_id"] : null;
 // Fetch user data
 $profileModel = new UserController($conn);
 $usersData = $profileModel->displayUsers();
-
 
 ?>
 <!DOCTYPE html>
@@ -23,7 +21,6 @@ $usersData = $profileModel->displayUsers();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Registered Users</title>
     <link rel="stylesheet" href="/assets/css/index.css">
-    <!-- Include SweetAlert CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 </head>
 <body>
@@ -56,27 +53,88 @@ $usersData = $profileModel->displayUsers();
         </div>
     </nav>
 
-    <div class="slogan_container">
-        <h1 class="matrimonial_slogan">Discover love, embrace the journey,<br>
+    <div class="main-container">
+        <div class="slogan_container">
+            <h1 class="matrimonial_slogan">Discover love, embrace the journey,<br>
             Together, we'll build your future.</h1>
+        </div>
     </div>
 
-    <div class="users-container">
-        <?php if (!empty($usersData)): ?>
-            <?php foreach ($usersData as $user): ?>
-                <div class="user-card">
-                    <h2><?php echo htmlspecialchars($user['name']); ?></h2>
-                    <p><strong>Age:</strong> <?php echo htmlspecialchars($user['age']); ?></p>
-                    <p><strong>Religion:</strong> <?php echo htmlspecialchars($user['religion']); ?></p>
-                    <p><strong>Mother Tongue:</strong> <?php echo htmlspecialchars($user['mother_tongue']); ?></p>
+    <div class="users-container-main">
+        <?php if ($userid): // Show the filter only if the user is registered/logged in ?>
+        <div class="filter-container">
+            <h2>Filter Users</h2>
+            <form id="filter-form" method="POST">
+                <!-- Gender Filter -->
+                <div class="filter-group">
+                    <h3>Gender</h3>
+                    <label><input type="radio" name="gender" value="male"> Male</label><br>
+                    <label><input type="radio" name="gender" value="female"> Female</label><br>
+                    <label><input type="radio" name="gender" value="other"> Other</label>
                 </div>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <p></p>
+
+                <!-- Age Filter -->
+                <div class="filter-group">
+                    <h3>Age</h3>
+                    <label for="age-min">Min Age: </label>
+                    <input type="number" id="age-min" name="age_min" min="18" max="100" value="18"><br>
+                    <label for="age-max">Max Age: </label>
+                    <input type="number" id="age-max" name="age_max" min="18" max="100" value="60">
+                </div>
+
+                <!-- Religion Filter -->
+                <div class="filter-group">
+                    <h3>Religion</h3>
+                    <select name="religion" id="religion">
+                        <option value="">Any</option>
+                        <option value="hindu">Hindu</option>
+                        <option value="muslim">Muslim</option>
+                        <option value="christian">Christian</option>
+                        <option value="sikh">Sikh</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <!-- Caste Filter -->
+                <div class="filter-group">
+                    <h3>Caste</h3>
+                    <select name="caste" id="caste">
+                        <option value="">Any</option>
+                        <option value="brahmin">Brahmin</option>
+                        <option value="rajput">Rajput</option>
+                        <option value="vaishya">Vaishya</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn-primary">Apply Filters</button>
+            </form>
+        </div>
         <?php endif; ?>
+
+        <div class="users-container">
+            <?php if (!empty($usersData)): ?>
+                <?php foreach ($usersData as $user): ?>
+                    <div class="user-card">
+                        <div class="image-container">
+                            <img src="<?php echo htmlspecialchars($user['profile_photo']); ?>" alt="Profile Photo" class="profile-photo">
+                        </div>
+                        <div class="user-details">
+                            <h2><?php echo htmlspecialchars($user['name']); ?></h2>
+                            <p><strong>Age:</strong> <?php echo htmlspecialchars($user['age']); ?></p>
+                            <p><strong>Religion:</strong> <?php echo htmlspecialchars($user['religion']); ?></p>
+                            <p><strong>Mother Tongue:</strong> <?php echo htmlspecialchars($user['mother_tongue']); ?></p>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>No users found</p>
+            <?php endif; ?>
+        </div>
     </div>
 
-    <!-- Include SweetAlert JS -->
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 </body>
 </html>

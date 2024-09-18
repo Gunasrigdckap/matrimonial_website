@@ -82,9 +82,4 @@
         margin-top: 0.25rem;
         height: 5px;
     }
-    /* For smaller screens, make it one column */
-    @media (max-width: 768px) {
-        form {
-            grid-template-columns: 1fr; /* Single column layout for mobile */
-        }
-    }
+    

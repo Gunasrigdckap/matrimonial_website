@@ -7,7 +7,7 @@ class ProfileModel {
     }
 
     public function insertProfile($profileData) {
-        $stmt = $this->db->prepare("INSERT INTO tbl_users_profiles (register_id, height, weight, religion, caste, mother_tongue, marital_status, education, occupation, income, address, city, state, country, hobbies, about_me, profile_created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())");
+        $stmt = $this->db->prepare("INSERT INTO tbl_users_profiles (register_id, height, weight, religion, caste, mother_tongue, marital_status, education, occupation, income, address, city, state, country, hobbies, about_me, profile_photo, profile_created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())");
         return $stmt->execute([
             $profileData['register_id'],
             $profileData['height'],
@@ -24,8 +24,10 @@ class ProfileModel {
             $profileData['state'],
             $profileData['country'],
             $profileData['hobbies'],
-            $profileData['about_me']
+            $profileData['about_me'],
+            $profileData['profile_photo']
         ]);
     }
+    
 }
 ?>

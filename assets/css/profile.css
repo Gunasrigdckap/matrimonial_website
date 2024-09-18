@@ -13,9 +13,11 @@ form {
     max-width: 1000px;
     margin: 0 auto;
     padding: 50px;
+    margin-top: 40px;
     display: grid;
     grid-template-columns: 1fr 1fr; /* Two columns */
     gap: 20px;
+    background-color: #f9f9f9;
 }
 
 label {
@@ -31,11 +33,15 @@ input[type="number"],
 textarea,
 select {
     width: 90%;
-    padding: 8px;
+    padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    font-size: 1rem;
+    background-color: #fff;
+    transition: border-color 0.3s ease-in-out;
 }
+
 
 .gender-group {
     display: flex;
@@ -69,6 +75,9 @@ select:focus {
 input[type="submit"]:hover {
     background-color: rgb(203, 154, 255);
 }
+textarea{
+    resize: none;
+  }
 
 .error_messages {
     color: #dc2626;

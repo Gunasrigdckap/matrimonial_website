@@ -7,7 +7,6 @@
     <title>Family Details</title>
     <script src="/assets/js/register_login_validation.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="/assets/css/family_details.css">
 </head>
 <body>
     <form name="familyDetailsForm" action="/controllers/familyDetailsController.php" method="POST" onsubmit="return validateFamilyDetailsForm()">
@@ -19,7 +18,16 @@
 
         <div>
             <label for="father_occupation">Father's Occupation:</label>
-            <input type="text" id="father_occupation" name="father_occupation">
+            <select id="father_occupation" name="father_occupation">
+                <option value="">Select Occupation</option>
+                <option value="Engineer">Engineer</option>
+                <option value="Doctor">Doctor</option>
+                <option value="Teacher">Teacher</option>
+                <option value="Businessman">Businessman</option>
+                <option value="Farmer">Farmer</option>
+                <option value="Retired">Retired</option>
+                <!-- Add more options if needed -->
+            </select>
             <span class="error_messages" id="father_occupation_error"></span>
         </div>
 
@@ -31,7 +39,16 @@
 
         <div>
             <label for="mother_occupation">Mother's Occupation:</label>
-            <input type="text" id="mother_occupation" name="mother_occupation">
+            <select id="mother_occupation" name="mother_occupation">
+                <option value="">Select Occupation</option>
+                <option value="Homemaker">Homemaker</option>
+                <option value="Teacher">Teacher</option>
+                <option value="Doctor">Doctor</option>
+                <option value="Businesswoman">Businesswoman</option>
+                <option value="Engineer">Engineer</option>
+                <option value="Retired">Retired</option>
+                <!-- Add more options if needed -->
+            </select>
             <span class="error_messages" id="mother_occupation_error"></span>
         </div>
 

@@ -3,22 +3,38 @@ session_start();
 require __DIR__ . '/../models/DB.php';
 require_once '../models/profilemodel.php';
 
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-
-// Instantiate the connection
 $db = new dbConnection($config);
 $conn = $db->getConnection();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Retrieve the register ID from the session
-    $registerId = $_SESSION['register_id']; // Assuming you set this during registration
+    $registerId = $_SESSION['register_id']; 
 
-    // Check if register ID is available
     if (isset($registerId)) {
+        // Handle profile photo upload
+        $profilePhotoPath = null;
+        if (isset($_FILES['profile_photo']) && $_FILES['profile_photo']['error'] === UPLOAD_ERR_OK) {
+            $photoTmpPath = $_FILES['profile_photo']['tmp_name'];
+            $photoName = $_FILES['profile_photo']['name'];
+            $uploadDir = __DIR__ . '/../uploads/profile_photos/';  // Directory to store profile photos
+            if (!file_exists($uploadDir)) {
+                mkdir($uploadDir, 0777, true);  // Create the directory if it doesn't exist
+            }
+            $profilePhotoPath = $uploadDir . basename($photoName);
+            
+            // Move uploaded file to the desired directory
+            if (move_uploaded_file($photoTmpPath, $profilePhotoPath)) {
+                // Store only relative path to avoid exposing server directory structure
+                $profilePhotoPath = '/uploads/profile_photos/' . basename($photoName);
+            } else {
+                echo "Error uploading the profile photo.";
+                exit;
+            }
+        }
+
         // Prepare profile data
         $profileData = [
             'register_id' => $registerId,
@@ -36,22 +52,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             'state' => $_POST['state'],
             'country' => $_POST['country'],
             'hobbies' => $_POST['hobbies'],
-            'about_me' => $_POST['about_me']
+            'about_me' => $_POST['about_me'],
+            'profile_photo' => $profilePhotoPath  
         ];
 
-        // Prepare and execute profile insertion
         $profileModel = new ProfileModel($conn);
         if ($profileModel->insertProfile($profileData)) {
-
-         header("Location: /family_details.php");
+            header("Location: /family_details.php");
         } else {
-             echo "Error occurred during profile insertion!";
+            echo "Error occurred during profile insertion!";
         }
     } else {
-         echo "Register ID not available!";
-         header("Location: /register.php");
+        echo "Register ID not available!";
+        header("Location: /register.php");
     }
 } else {
     header('Location: /login.php');
 }
-?>
