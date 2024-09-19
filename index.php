@@ -1,19 +1,29 @@
 <?php
-
 session_start();
 require __DIR__ . '/models/DB.php';
 require __DIR__ . '/controllers/userController.php';
 $config = require(__DIR__ . '/config.php');
 
+// Initialize database and controller
 $db = new dbConnection($config); 
 $conn = $db->getConnection(); 
 
 $userid = isset($_SESSION["register_id"]) ? $_SESSION["register_id"] : null;
-// Fetch user data
-$profileModel = new UserController($conn);
-$usersData = $profileModel->displayUsers();
 
+// Fetch user data based on filter inputs
+$filters = [
+    'gender' => $_POST['gender'] ?? null,
+    'age_min' => $_POST['age_min'] ?? null,
+    'age_max' => $_POST['age_max'] ?? null,
+    'religion' => $_POST['religion'] ?? null,
+    'caste' => $_POST['caste'] ?? null,
+];
+
+// Fetch filtered users data
+$profileModel = new UserController($conn);
+$usersData = $profileModel->displayUsers($filters);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,11 +34,11 @@ $usersData = $profileModel->displayUsers();
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 </head>
 <body>
+
+    <!-- Navbar -->
     <nav class="navbar">
         <div class="container">
-            <a href="#" class="logo">
-                <span class="logo-text">WedBliss</span>
-            </a>
+            <a href="#" class="logo"><span class="logo-text">WedBliss</span></a>
             <div class="menu">
                 <input type="text" id="search-navbar" class="search-input" placeholder="Search...">
                 <ul class="nav-links">
@@ -53,18 +63,19 @@ $usersData = $profileModel->displayUsers();
         </div>
     </nav>
 
+    <!-- Main Section -->
     <div class="main-container">
         <div class="slogan_container">
-            <h1 class="matrimonial_slogan">Discover love, embrace the journey,<br>
-            Together, we'll build your future.</h1>
+            <h1 class="matrimonial_slogan">Discover love, embrace the journey,<br> Together, we'll build your future.</h1>
         </div>
     </div>
 
+    <!-- Users and Filters Section -->
     <div class="users-container-main">
         <?php if ($userid): // Show the filter only if the user is registered/logged in ?>
         <div class="filter-container">
             <h2>Filter Users</h2>
-            <form id="filter-form" method="POST">
+            <form id="filter-form" method="POST" action="index.php">
                 <!-- Gender Filter -->
                 <div class="filter-group">
                     <h3>Gender</h3>
@@ -112,6 +123,7 @@ $usersData = $profileModel->displayUsers();
         </div>
         <?php endif; ?>
 
+        <!-- Display Users -->
         <div class="users-container">
             <?php if (!empty($usersData)): ?>
                 <?php foreach ($usersData as $user): ?>
@@ -131,8 +143,6 @@ $usersData = $profileModel->displayUsers();
                 <p>No users found</p>
             <?php endif; ?>
         </div>
-    </div>
-
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>

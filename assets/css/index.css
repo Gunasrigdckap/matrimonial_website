@@ -251,6 +251,7 @@ input[type="text"]:focus {
     padding: 20px;
     border-radius: 8px;
     width: 280px;
+    height: 340px;
     text-align: center;
 }
 

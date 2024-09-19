@@ -7,7 +7,14 @@
     <title>Family Details</title>
     <script src="/assets/js/register_login_validation.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        .progress-container { width: 100%; background-color: #f3f3f3; border-radius: 5px; margin-bottom: 20px; }
+        .progress-bar { height: 25px; background-color: #4caf50; width: 100%; border-radius: 5px; text-align: center; line-height: 25px; color: white; }
+    </style>
 </head>
+<!-- <div class="progress-container">
+    <div class="progress-bar">100%</div>
+</div> -->
 <body>
     <form name="familyDetailsForm" action="/controllers/familyDetailsController.php" method="POST" onsubmit="return validateFamilyDetailsForm()">
         <div>

@@ -12,12 +12,13 @@ class UserController
         $this->userDetails = new UserDetails($db); 
     }
 
-    public function displayUsers()
+    public function displayUsers($filters)
     {
-        $currentRegisterId = $_SESSION['register_id'];
+        $currentRegisterId = $_SESSION['register_id'] ?? null;
 
-        $users = $this->userDetails->getAllUsersExceptCurrent($currentRegisterId);
-           
+        // Pass filters and current user ID to model
+        $users = $this->userDetails->getUsersByFilters($filters, $currentRegisterId);
+
         return $users;
     }
 }

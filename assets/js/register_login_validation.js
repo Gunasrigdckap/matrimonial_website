@@ -77,8 +77,8 @@ function validateRegisterForm() {
     // Date of birth validation
     let currentDate = new Date();
     let birthDate = new Date(dataofbirth);
-    let ageDifMs = currentDate - birthDate;
-    let ageDate = new Date(ageDifMs);
+    let ageDif = currentDate - birthDate;
+    let ageDate = new Date(ageDif);
     let age = Math.abs(ageDate.getUTCFullYear() - 1970);
 
     if (dataofbirth === '') {
