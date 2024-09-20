@@ -162,7 +162,7 @@ input[type="text"]:focus {
     padding: 20px;
     border-radius: 8px;
     width: 25%;
-    height: 680px;
+    height: 720px;
     max-width: 300px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -208,7 +208,7 @@ input[type="text"]:focus {
 .filter-group select:focus {
     border-color: rgb(141, 92, 195);
 }
-.btn-primary {
+.btn-primary , #reset-btn{
     display: block;
     width: 100%;
     padding: 10px;
@@ -225,8 +225,13 @@ input[type="text"]:focus {
 .btn-primary:hover {
     background-color: #a15cb1;
 }
-
-
+button#reset-btn {
+    margin-top: 10px;
+    background-color: rgb(255, 138, 138);
+}
+button#reset-btn:hover{
+    background-color: rgb(255, 82, 82);
+}
 /* Users Container Styles */
 .users-container {
     display: flex;

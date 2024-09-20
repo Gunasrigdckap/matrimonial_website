@@ -107,3 +107,31 @@ input[type="submit"]:hover {
     height: 25px;
 }
 
+   /* style for tooltip*/
+   .password-tooltip {
+    display: none;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 10px;
+    width: 300px;
+    position: absolute;
+    top:308px;
+    left: 65%;
+    font-size: 14px;
+    z-index: 1000;
+}
+
+.password-tooltip ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.password-tooltip li {
+    margin: 5px 0;
+    color: red;
+}
+
+.password-tooltip li.valid {
+    color: green;
+    font-weight: bold;
+}

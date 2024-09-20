@@ -25,5 +25,6 @@
         <input type="submit" value="Login">
     </form>
     <script src="/assets/js//register_login_validation.js"></script>
+    <script src="/assets/js/validationUtils.js"></script>
 </body>
 </html>

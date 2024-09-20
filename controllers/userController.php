@@ -21,5 +21,6 @@ class UserController
 
         return $users;
     }
+
 }
 ?>

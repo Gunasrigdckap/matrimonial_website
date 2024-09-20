@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="/assets/css/register.css">
     <title>Register</title>
     <script src="/assets/js/register_login_validation.js"></script>
+    <script src="/assets/js/validationUtils.js"></script>
+
         <!-- Include SweetAlert -->
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <style>
@@ -43,8 +45,18 @@
         
         <div>
             <label for="user_password">Password:</label>
-            <input type="password" id="user_password" name="user_password">
+            <!-- <input type="password" id="user_password" name="user_password"> -->
+            <input type="password" id="user_password" name="user_password" onfocus="showTooltip()" onblur="hideTooltip()" oninput="validatePassword()">
             <span class="error_messages" id="user_password_error"></span>
+            <div class="password-tooltip" id="password_tooltip">
+                <ul>
+                    <li id="uppercase">At least one uppercase letter</li>
+                    <li id="special_char">At least one special character (!@#$%^&*)</li>
+                    <li id="number">At least one number</li>
+                    <li id="min_length">Minimum 8 characters</li>
+                </ul>
+            </div>
+
         </div>
 
         <div>

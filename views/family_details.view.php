@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="/assets/css/family_details.css">
     <title>Family Details</title>
     <script src="/assets/js/register_login_validation.js"></script>
+    <script src="/assets/js/validationUtils.js"></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         .progress-container { width: 100%; background-color: #f3f3f3; border-radius: 5px; margin-bottom: 20px; }

@@ -19,6 +19,11 @@ $filters = [
     'caste' => $_POST['caste'] ?? null,
 ];
 
+// If the reset button is clicked, clear the filters
+if (isset($_POST['reset'])) {
+    $filters = []; // Clear all filters when reset is clicked
+}
+
 // Fetch filtered users data
 $profileModel = new UserController($conn);
 $usersData = $profileModel->displayUsers($filters);
@@ -31,6 +36,7 @@ $usersData = $profileModel->displayUsers($filters);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Registered Users</title>
     <link rel="stylesheet" href="/assets/css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 </head>
 <body>
@@ -53,7 +59,7 @@ $usersData = $profileModel->displayUsers($filters);
                                 <img src="/uploads/profile_icon.jpg" alt="Profile Icon" style="width: 24px; height: 24px;">
                             </a>
                             <div class="dropdown-menu">
-                                <a href="/profile.php" class="dropdown-item">Profile</a>
+                                <a href="/current-user-profile-listing.php" class="dropdown-item">Profile</a>
                                 <a href="/logout.php" class="dropdown-item">Logout</a>
                             </div>
                         </li>
@@ -119,6 +125,8 @@ $usersData = $profileModel->displayUsers($filters);
                 </div>
 
                 <button type="submit" class="btn-primary">Apply Filters</button>
+                <button type="submit" name = "reset" id="reset-btn">Reset <i class="fa-solid fa-arrow-rotate-right"></i></button>
+
             </form>
         </div>
         <?php endif; ?>
