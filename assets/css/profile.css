@@ -87,3 +87,13 @@ textarea{
     height: 5px;
 }
 
+.skip{
+    font-size: 20px;
+    padding: 20px;
+    margin-left: 160px;
+    cursor: pointer;
+    color: green;
+}
+.skip a{
+    text-decoration: none
+}

@@ -66,6 +66,7 @@
         padding: 10px;
         background-color:  rgb(141, 92, 195);
         color: white;
+        width: 30%;
         border: none;
         border-radius: 5px;
         cursor: pointer;
@@ -112,4 +113,4 @@
         color: green;
         font-weight: bold;
     }
-    
+   

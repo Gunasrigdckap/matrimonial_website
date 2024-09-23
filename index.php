@@ -2,11 +2,7 @@
 session_start();
 require __DIR__ . '/models/DB.php';
 require __DIR__ . '/controllers/userController.php';
-$config = require(__DIR__ . '/config.php');
-
-// Initialize database and controller
-$db = new dbConnection($config); 
-$conn = $db->getConnection(); 
+require __DIR__ .'/controllers/userProfileController.php';
 
 $userid = isset($_SESSION["register_id"]) ? $_SESSION["register_id"] : null;
 
@@ -27,6 +23,22 @@ if (isset($_POST['reset'])) {
 // Fetch filtered users data
 $profileModel = new UserController($conn);
 $usersData = $profileModel->displayUsers($filters);
+
+
+
+// Delete profile logic
+if (isset($_POST['delete_profile'])) {
+    $profileController = new  UserProfileController($conn); 
+    
+    if ($profileController->deleteProfile($userid)) {
+        session_destroy(); // Clear session
+        header("Location: /login.php?message=Profile deleted successfully."); 
+        exit();
+    } else {
+        echo "Error deleting profile.";
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -59,7 +71,14 @@ $usersData = $profileModel->displayUsers($filters);
                                 <img src="/uploads/profile_icon.jpg" alt="Profile Icon" style="width: 24px; height: 24px;">
                             </a>
                             <div class="dropdown-menu">
-                                <a href="/current-user-profile-listing.php" class="dropdown-item">Profile</a>
+                                <a href="/current-user-profile-listing.php" class="dropdown-item"> View Profile</a>
+                                <!-- <a href="" class="dropdown-item"> Delete Profile</a> -->
+                            <form method="POST" action="index.php">
+                                <button type="submit" name="delete_profile" id="delete-profile"class="dropdown-item" 
+                                onclick="return confirm('Are you sure you want to delete your profile? This action cannot be undone.');">
+                                    Delete Profile
+                                </button>
+                           </form>
                                 <a href="/logout.php" class="dropdown-item">Logout</a>
                             </div>
                         </li>
@@ -156,3 +175,7 @@ $usersData = $profileModel->displayUsers($filters);
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 </body>
 </html>
+
+
+
+

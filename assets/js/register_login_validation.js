@@ -415,6 +415,26 @@ function validatePassword() {
     }
 }
 
+$(document).ready(function() {
+    // Function to toggle the active section
+    function toggleSectionDisplay(section) {
+        // Remove 'active' class from all sections
+        $('.profile-section-content').removeClass('active');
+        
+        // Add 'active' class to the selected section
+        $('#' + section).addClass('active');
+    }
+
+    // Event listener for buttons
+    $('.toggle-btn').on('click', function() {
+        // Get the section name from the clicked button's data-section attribute
+        var section = $(this).data('section');
+        
+        // Call the function to toggle the section
+        toggleSectionDisplay(section);
+    });
+});
+
 
 
 

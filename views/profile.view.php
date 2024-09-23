@@ -8,16 +8,16 @@
     <script src="/assets/js/register_login_validation.js"></script>
     <script src="/assets/js/validationUtils.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <style>
-        .progress-container { width: 100%; background-color: #f3f3f3; border-radius: 5px; margin-bottom: 20px; }
-        .progress-bar { height: 25px; background-color: #4caf50; width: 66%; border-radius: 5px; text-align: center; line-height: 25px; color: white; }
-    </style>
+   
 </head>
 <body>
 
-<!-- <div class="progress-container">
-    <div class="progress-bar">33%</div>
-</div> -->
+<div class="Skip-container">
+    <h1 class="skip">
+        <a href="/index.php">Skip</a>
+    </h1>
+</div>
+
     <form name="profileForm" action="/controllers/profileController.php" method="POST" enctype="multipart/form-data" onsubmit="return validateProfileForm()">
         <div>
             <label for="height">Height (in cm):</label>
