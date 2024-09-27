@@ -1,6 +1,7 @@
 <?php
 require __DIR__ . '/../models/userprofilemodel.php'; 
 
+
 class UserProfileController {
     private $userDetails;
 

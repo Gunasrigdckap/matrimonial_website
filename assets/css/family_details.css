@@ -84,7 +84,7 @@ select:focus {
 
 
 button.family_button {
-    width: 155px;
+    width: 200px;
     background-color: rgb(141, 92, 195);
     height: 50px;
     grid-column: span 2; 
@@ -108,4 +108,13 @@ input[type="submit"]:hover {
     height: 5px;
 }
 
-
+.skip{
+    font-size: 20px;
+    padding: 20px;
+    margin-left: 160px;
+    cursor: pointer;
+    color: green;
+}
+.skip a{
+    text-decoration: none
+}

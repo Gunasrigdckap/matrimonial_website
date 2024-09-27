@@ -1,4 +1,5 @@
 <?php
+
 class UserProfileDetails {
     
     private $conn;
@@ -34,6 +35,15 @@ class UserProfileDetails {
 }
 
 public function deleteUserProfile($register_id) {
+    // First, delete related records
+    $stmt = $this->conn->prepare("DELETE FROM tbl_family_details WHERE register_id = :register_id");
+    $stmt->bindParam(':register_id', $register_id);
+    $stmt->execute();
+
+    $stmt = $this->conn->prepare("DELETE FROM tbl_users_profiles WHERE register_id = :register_id");
+    $stmt->bindParam(':register_id', $register_id);
+    $stmt->execute();
+
     $sql = "DELETE FROM tbl_register WHERE register_id = :register_id";
     $stmt = $this->conn->prepare($sql);
     $stmt->bindParam(':register_id', $register_id, PDO::PARAM_INT);

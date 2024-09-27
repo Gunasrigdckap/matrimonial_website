@@ -18,13 +18,18 @@ $userProfile = $profileController->getCurrentUserProfile($register_id);
     <link rel="stylesheet" href="/assets/css/current_user_profile.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/assets/js/register_login_validation.js"></script>
+    <link rel="stylesheet" href="/assets/css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 
+<?php require __DIR__ . '/partials/header/header.php'; ?>
 <div class="profile-container">
     <div class="profile-section">
         <div>
-        <img src="<?php echo !empty($userProfile['profile_photo']) ? htmlspecialchars($userProfile['profile_photo']) : '/uploads/default-image.png'; ?>" alt="Profile Photo" class="profile-photo">
+        <img src="<?php echo !empty($userProfile['profile_photo']) ? htmlspecialchars($userProfile['profile_photo']) : '/uploads/default-image.png'; ?>" alt="Profile Photo" class="user-profile-photo">
         </div>
 
         <div>
@@ -35,37 +40,29 @@ $userProfile = $profileController->getCurrentUserProfile($register_id);
         </div>
     </div>
 
-    <!-- Edit Button to complete or update profile -->
-    <div>
-        <a href="/views/profile.view.php" class="edit-btn">Edit Profile</a>
-    </div>
     
     <!-- Toggle Buttons -->
     <div class="toggle-buttons">
         <button class="toggle-btn" data-section="personal-info">Personal Info</button>
-        <button class="toggle-btn" data-section="physical-info">Physical Info</button>
-        <button class="toggle-btn" data-section="family-info">Family Info</button>
+        <button class="toggle-btn" data-section="family-info">Family Info </button>
     </div>
 
     <!-- Personal Info Section -->
     <div id="personal-info" class="profile-section-content active">
-        <h3>About Me :</h3>
-        <p><?php echo htmlspecialchars($userProfile['about_me'] ?? 'Not provided'); ?></p>
+       <h3>Personal Details</h3> <div><a href="/views/profile.view.php" class="edit-btn"><i class="fa-solid fa-pen-to-square"></i></a></div>
+        <p><strong> About Me:</strong> <?php echo htmlspecialchars($userProfile['about_me'] ?? 'Not provided'); ?></p>
         <p><strong>Hobbies:</strong> <?php echo htmlspecialchars($userProfile['hobbies'] ?? 'Not provided'); ?></p>
-    </div>
-
-    <!-- Physical Info Section -->
-    <div id="physical-info" class="profile-section-content">
-        <h3>Physical Attributes</h3><br>
         <p><strong>Height:</strong> <?php echo htmlspecialchars($userProfile['height'] ?? 'Not provided'); ?> cm</p>
         <p><strong>Weight:</strong> <?php echo htmlspecialchars($userProfile['weight'] ?? 'Not provided'); ?> kg</p>
         <p><strong>Religion:</strong> <?php echo htmlspecialchars($userProfile['religion'] ?? 'Not provided'); ?></p>
         <p><strong>Caste:</strong> <?php echo htmlspecialchars($userProfile['caste'] ?? 'Not provided'); ?></p>
     </div>
 
+   
+
     <!-- Family Info Section -->
     <div id="family-info" class="profile-section-content">
-        <h3>Family Details</h3><br>
+        <h3>Family Details</h3> <div><a href="/views/family_details.view.php" class="edit-btn"><i class="fa-solid fa-pen-to-square"></i></a></div>
         <p><strong>Father's Name:</strong> <?php echo htmlspecialchars($userProfile['father_name'] ?? 'Not provided'); ?></p>
         <p><strong>Mother's Name:</strong> <?php echo htmlspecialchars($userProfile['mother_name'] ?? 'Not provided'); ?></p>
         <p><strong>Father's Occupation:</strong> <?php echo htmlspecialchars($userProfile['father_occupation'] ?? 'Not provided'); ?></p>

@@ -1,3 +1,5 @@
+
+
 @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
 
 * {
@@ -172,6 +174,7 @@ input[type="text"]:focus {
     border-radius: 8px;
     width: 25%;
     height: 720px;
+    margin-top: 42px;
     max-width: 300px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -217,7 +220,7 @@ input[type="text"]:focus {
 .filter-group select:focus {
     border-color: rgb(141, 92, 195);
 }
-.btn-primary , #reset-btn{
+.btn-primary , #reset-filters{
     display: block;
     width: 100%;
     padding: 10px;
@@ -234,69 +237,132 @@ input[type="text"]:focus {
 .btn-primary:hover {
     background-color: #a15cb1;
 }
-button#reset-btn {
+button#reset-filters {
     margin-top: 10px;
     background-color: rgb(255, 138, 138);
 }
-button#reset-btn:hover{
+button#reset-filters:hover{
     background-color: rgb(255, 82, 82);
 }
-/* Users Container Styles */
-.users-container {
+
+
+
+/* User Section Styling */
+.user-section {
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+/* User Cards Grid */
+.user-grid {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
     gap: 20px;
-    width: 70%;
 }
 
-/* .user-card {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.user-card {
+    background-color: white;
+    width: calc(33.333% - 20px); /* Three cards per row */
     padding: 20px;
-    width: 250px;
-    height: 250px;
-    text-align: center;
-} */
- .user-card {
-    border: 1px solid #ddd;
-    padding: 20px;
-    border-radius: 8px;
-    width: 280px;
-    height: 340px;
-    text-align: center;
-}
-
-/* .profile-photo {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 15px;
-} */
-.profile-photo {
-    width: 243px;
-    height: 174px;
     border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    text-align: center;
+}
+
+.user-card:hover {
+    transform: translateY(-5px);
+}
+
+.profile-photo img {
+    width: 258px;
+    height: 174px;
+    border-radius: 5px;
     object-fit: cover;
     margin-bottom: 15px;
 }
 
-.user-card h2 {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-    color: #333;
+.user-card h3 {
+    font-size: 18px;
+    margin: 10px 0;
+    font-family: 'Varela Round', sans-serif;
 }
 
 .user-card p {
-    margin: 5px 0;
-    font-size: 1em;
-    color: #555;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
 }
 
-.user-card p strong {
-    color: #333;
+/* Pagination Controls */
+.pagination-controls {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.pagination1 {
+    top: 88rem;
+    position: absolute;
+    left: 44rem;
+}
+.btn-pagination {
+    background-color: rgb(141, 92, 195);
+    color: white;
+    border: none;
+    width: 100px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
+.btn-pagination:hover {
+    background-color: rgb(167, 117, 220);
+}
+
+.pagination-numbers {
+    display: flex;
+    gap: 10px;
+}
+
+
+
+
+
+/* Pagination Container */
+.pagination {
+    display: flex;
+    padding: 30px;
+    justify-content: center; /* Center the pagination */
+    margin: 20px 0; /* Space above and below the pagination */
+}
+
+/* Pagination List */
+.pagination ul {
+    list-style: none; /* Remove default list styling */
+    padding: 0; /* Remove padding */
+    display: flex; /* Use flexbox for horizontal alignment */
+}
+
+/* Pagination Item */
+.pagination li {
+    margin: 0 5px; /* Space between pagination items */
+}
+
+/* Pagination Links */
+.pagination a {
+    display: inline-block;
+    padding: 10px 15px; 
+    text-decoration: none;
+    color: rgb(141, 92, 195); 
+    border: 1px solid  rgb(141, 92, 195); 
+    border-radius: 5px; 
+    transition: background-color 0.3s, color 0.3s; 
+}

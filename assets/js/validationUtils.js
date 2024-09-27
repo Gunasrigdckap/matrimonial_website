@@ -8,6 +8,8 @@ function clearError(elementId) {
     document.getElementById(elementId).textContent = '';
 }
 
+
+
 // Utility function to check if a field is empty
 function isEmpty(value) {
     return value.trim() === '';

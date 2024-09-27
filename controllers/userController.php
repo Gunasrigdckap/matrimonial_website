@@ -12,15 +12,12 @@ class UserController
         $this->userDetails = new UserDetails($db); 
     }
 
-    public function displayUsers($filters)
-    {
-        $currentRegisterId = $_SESSION['register_id'] ?? null;
-
-        // Pass filters and current user ID to model
-        $users = $this->userDetails->getUsersByFilters($filters, $currentRegisterId);
-
-        return $users;
-    }
+      // Displays the all details to the user
+      public function displayUsers($filters, $offset, $itemsPerPage, $currentUserId)
+{
+    $users = $this->userDetails->displayUsersDetails($filters, $offset, $itemsPerPage, $currentUserId);
+    return $users;
+}
 
 }
 ?>

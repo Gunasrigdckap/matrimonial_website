@@ -12,27 +12,46 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $registerId = $_SESSION['register_id']; // Assuming you set this during registration
 
     if (isset($registerId)) {
-        // Prepare family details data
-        $familyDetails = [
-            'register_id' => $registerId,
-            'father_name' => $_POST['father_name'],
-            'father_occupation' => $_POST['father_occupation'],
-            'mother_name' => $_POST['mother_name'],
-            'mother_occupation' => $_POST['mother_occupation'],
-            'siblings' => $_POST['siblings'],
-            'family_type' => $_POST['family_type'],
-            'family_status' => $_POST['family_status']
-        ];
+        // Check which button was pressed
+        if (isset($_POST['action'])) {
+            $action = $_POST['action']; 
 
-        // Prepare and execute family details insertion
-        $familyModel = new FamilyDetailsModel($conn);
-        if ($familyModel->insertFamilyDetails($familyDetails)) {
-           header('location:/index.php');
-        } else {
-            echo "Failed to save family details. Please try again.";
+            // Prepare family details data
+            $familyDetails = [
+                'register_id' => $registerId,
+                'father_name' => $_POST['father_name'],
+                'father_occupation' => $_POST['father_occupation'],
+                'mother_name' => $_POST['mother_name'],
+                'mother_occupation' => $_POST['mother_occupation'],
+                'siblings' => $_POST['siblings'],
+                'family_type' => $_POST['family_type'],
+                'family_status' => $_POST['family_status']
+            ];
+
+            // Instantiate the FamilyDetailsModel
+            $familyModel = new FamilyDetailsModel($conn);
+
+            if ($action === 'update') {
+                // Update family details if they exist
+                if ($familyModel->updateFamilyDetails($familyDetails)) {
+                    header("Location:/views/current-user-profile-listing.view.php");
+                } else {
+                    echo "Error occurred during family details update!";
+                }
+            } elseif ($action === 'save') {
+                // Insert family details if they do not exist
+                if ($familyModel->insertFamilyDetails($familyDetails)) {
+                    header("Location: /index.php");
+                } else {
+                    echo "Error occurred during family details insertion!";
+                }
+            }
         }
     } else {
+        echo "Register ID not available!";
+        header("Location: /register.php");
+    }
+} else {
     header('Location: /login.php');
-}
 }
 ?>
