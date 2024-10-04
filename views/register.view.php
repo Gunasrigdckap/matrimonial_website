@@ -22,11 +22,27 @@
 </head>
 <body>
     
+
+
+<?php require __DIR__ . '/partials/header/header.php'; ?>
+
+
 <!-- <div class="progress-container">
     <div class="progress-bar">0%</div>
 </div> -->
 
-<?php require __DIR__ . '/partials/header/header.php'; ?>
+<div class="circular-progress">
+  <span class="progress-value">0%</span>
+  <div class="circle">
+    <div class="bar left">
+      <div class="progress"></div>
+    </div>
+    <div class="bar right">
+      <div class="progress"></div>
+    </div>
+  </div>
+</div>
+
     <form name="registerForm" action="/controllers/registerController.php" method="POST" onsubmit="return validateRegisterForm()">
         <div>
             <label for="first_name">First Name:</label>

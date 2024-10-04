@@ -8,7 +8,9 @@
 }
 
 
-
+.profile-container-main{
+    display: flex;
+}
 
 .profile-container {
     width: 600px;
@@ -82,4 +84,42 @@ a.edit-btn {
     position: relative;
     left: 90%;
     bottom: 17px;
+}
+
+
+/* circular-progress-container style */
+
+.circular-progress-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 420px;
+    margin-right: 40px;
+}
+
+.circular-progress {
+    width: 80px; 
+    height: 80px;
+    border-radius: 50%;
+    background: conic-gradient(#4caf50 0% 0%, #e0e0e0 0%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.circular-progress span {
+    position: absolute;
+    font-size: 14px;
+    font-weight: bold;
+    color: #4caf50;
+}
+
+.circular-progress::before {
+    content: "";
+    position: absolute;
+    width: 70px;
+    height: 70px; 
+    background-color: white;
+    border-radius: 50%;
 }

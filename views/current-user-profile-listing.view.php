@@ -7,6 +7,11 @@ require __DIR__ . '/../models/DB.php';
 $register_id = $_SESSION['register_id']; // Get logged-in user ID
 $profileController = new UserProfileController($conn);
 $userProfile = $profileController->getCurrentUserProfile($register_id);
+
+
+// Calculate the completion percentage
+$completionPercentage = $profileController->getProfileCompletionPercentage($userProfile);
+
 ?>
 
 <!DOCTYPE html>
@@ -23,9 +28,13 @@ $userProfile = $profileController->getCurrentUserProfile($register_id);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+
 <body>
 
 <?php require __DIR__ . '/partials/header/header.php'; ?>
+
+ <div class="profile-container-main">
+
 <div class="profile-container">
     <div class="profile-section">
         <div>
@@ -69,7 +78,27 @@ $userProfile = $profileController->getCurrentUserProfile($register_id);
         <p><strong>Mother's Occupation:</strong> <?php echo htmlspecialchars($userProfile['mother_occupation'] ?? 'Not provided'); ?></p>
     </div>
 </div>
+        <!-- progress-bar -->
 
+        <div class="circular-progress-container">
+            <div class="circular-progress" id="progress">
+                <span id="progress-percentage">0%</span>
+            </div>
+        </div>
+</div>
+<script>
+   $(document).ready(function() {
+    let completionPercentage = <?php echo $completionPercentage; ?>;
+    
+    // Set circular progress and text
+    let progressElement = document.getElementById('progress');
+    let percentageElement = document.getElementById('progress-percentage');
+    
+    progressElement.style.background = `conic-gradient(#4caf50 ${completionPercentage}%, #e0e0e0 ${completionPercentage}%)`;
+    percentageElement.textContent = completionPercentage + '%';
+});
+
+</script>
 
 </body>
 </html>
