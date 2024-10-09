@@ -9,6 +9,18 @@ class Register
     }
 
     public function insertUser($firstName, $lastName, $password, $email, $profileFor, $phoneNumber, $gender, $dateOfBirth) {
+        // Check if the email already exists
+        $checkQuery = "SELECT * FROM tbl_register WHERE user_email = :email";
+        $checkStmt = $this->conn->prepare($checkQuery);
+        $checkStmt->bindParam(':email', $email);
+        $checkStmt->execute();
+    
+        if ($checkStmt->rowCount() > 0) {
+            // Email already exists
+            return "Email already registered.";
+        }
+    
+        // Proceed with the insertion if email doesn't exist
         $query = "INSERT INTO tbl_register (first_name, last_name, user_password, user_email, profile_for, phone_number, gender, date_of_birth)
                   VALUES (:firstName, :lastName, :password, :email, :profileFor, :phoneNumber, :gender, :dateOfBirth)";
         
@@ -32,4 +44,5 @@ class Register
             return false;
         }
     }
+    
 }

@@ -24,6 +24,9 @@ $default_country = isset($userProfile['country']) ? $userProfile['country'] : ''
 $default_address = isset($userProfile['address']) ? $userProfile['address'] : '';
 $default_hobbies = isset($userProfile['hobbies']) ? $userProfile['hobbies'] : '';
 $default_about_me = isset($userProfile['about_me']) ? $userProfile['about_me'] : '';
+// $storedImagePath = isset($userProfile['profile_photo_path']) ? $userProfile['profile_photo_path'] : '';
+$default_profile_photo = isset($userProfile['profile_photo']) ? $userProfile['profile_photo'] : '';
+
 ?>
 
 <!DOCTYPE html>
@@ -138,40 +141,89 @@ $default_about_me = isset($userProfile['about_me']) ? $userProfile['about_me'] :
         <span class="error_messages" id="education_error"></span>
     </div>
 
-    <div>
+    <!-- <div>
         <label for="occupation">Occupation:</label>
         <input type="text" id="occupation" name="occupation" value="<?php echo $default_occupation; ?>">
         <span class="error_messages" id="occupation_error"></span>
-    </div>
-
+    </div> -->
     <div>
+    <label for="occupation">Occupation:</label>
+    <select id="occupation" name="occupation">
+        <option value="">Select Occupation</option>
+        <option value="doctor" <?php if($default_occupation == "doctor") echo "selected"; ?>>Doctor</option>
+        <option value="engineer" <?php if($default_occupation == "engineer") echo "selected"; ?>>Engineer</option>
+        <option value="teacher" <?php if($default_occupation == "teacher") echo "selected"; ?>>Teacher</option>
+        <option value="other" <?php if($default_occupation == "other") echo "selected"; ?>>Other</option>
+    </select>
+    <span class="error_messages" id="occupation_error"></span>
+</div>
+
+    <!-- <div>
         <label for="income">Income:</label>
         <input type="text" id="income" name="income" value="<?php echo $default_income; ?>">
         <span class="error_messages" id="income_error"></span>
+    </div> -->
+    <div>
+    <label for="income">Annual Income (in USD):</label>
+    <select id="income" name="income">
+        <option value="">Select Income Range</option>
+        <option value="0-20000" <?php if($default_income == "below-20000") echo "selected"; ?>>Below $20,000</option>
+        <option value="20000-50000" <?php if($default_income == "20000-50000") echo "selected"; ?>>$20,000 - $50,000</option>
+        <option value="50000-100000" <?php if($default_income == "50000-100000") echo "selected"; ?>>$50,000 - $100,000</option>
+        <option value="100000+" <?php if($default_income == "above-100000") echo "selected"; ?>>Above $100,000</option>
+    </select>
+    <span class="error_messages" id="income_error"></span>
+    </div>
+
+    <div>
+    <label for="country">Country:</label>
+    <select id="country" name="country">
+        <option value="">Select Country</option>
+        <option value="india" <?php if($default_country == "india") echo "selected"; ?>>India</option>
+        <option value="usa" <?php if($default_country == "usa") echo "selected"; ?>>USA</option>
+        <option value="uk" <?php if($default_country == "uk") echo "selected"; ?>>UK</option>
+        <option value="canada" <?php if($default_country == "canada") echo "selected"; ?>>Canada</option>
+        <option value="australia" <?php if($default_country == "australia") echo "selected"; ?>>Australia</option>
+        <!-- Add more countries as needed -->
+    </select>
+    <span class="error_messages" id="country_error"></span>
+    </div>
+
+
+
+ 
+    <div>
+    <label for="state">State:</label>
+    <select id="state" name="state">
+        <option value="">Select State</option>
+        <option value="tamil_nadu" <?php if($default_state == "tamil_nadu") echo "selected"; ?>>Tamil Nadu</option>
+        <option value="karnataka" <?php if($default_state == "karnataka") echo "selected"; ?>>Karnataka</option>
+        <option value="maharashtra" <?php if($default_state == "maharashtra") echo "selected"; ?>>Maharashtra</option>
+        <option value="delhi" <?php if($default_state == "delhi") echo "selected"; ?>>Delhi</option>
+        <option value="uttar_pradesh" <?php if($default_state == "uttar_pradesh") echo "selected"; ?>>Uttar Pradesh</option>
+        <!-- Add more states as needed -->
+    </select>
+    <span class="error_messages" id="state_error"></span>
+    </div>
+
+    <div>
+    <label for="city">City:</label>
+    <select id="city" name="city">
+        <option value="">Select City</option>
+        <option value="chennai" <?php if($default_city == "chennai") echo "selected"; ?>>Chennai</option>
+        <option value="trichy" <?php if($default_city == "trichy") echo "selected"; ?>>Trichy</option>
+        <option value="bangalore" <?php if($default_city == "bangalore") echo "selected"; ?>>Bangalore</option>
+        <option value="mumbai" <?php if($default_city == "mumbai") echo "selected"; ?>>Mumbai</option>
+        <option value="delhi" <?php if($default_city == "delhi") echo "selected"; ?>>Delhi</option>
+        <!-- Add more cities as needed -->
+    </select>
+    <span class="error_messages" id="city_error"></span>
     </div>
 
     <div>
         <label for="address">Address:</label>
-        <input type="text" id="address" name="address" value="<?php echo $default_address; ?>">
+        <textarea id="address" name="address"><?php echo $default_address; ?></textarea>
         <span class="error_messages" id="address_error"></span>
-    </div>
-
-    <div>
-        <label for="city">City:</label>
-        <input type="text" id="city" name="city" value="<?php echo $default_city; ?>">
-        <span class="error_messages" id="city_error"></span>
-    </div>
-
-    <div>
-        <label for="state">State:</label>
-        <input type="text" id="state" name="state" value="<?php echo $default_state; ?>">
-        <span class="error_messages" id="state_error"></span>
-    </div>
-
-    <div>
-        <label for="country">Country:</label>
-        <input type="text" id="country" name="country" value="<?php echo $default_country; ?>">
-        <span class="error_messages" id="country_error"></span>
     </div>
 
     <div>
@@ -186,13 +238,17 @@ $default_about_me = isset($userProfile['about_me']) ? $userProfile['about_me'] :
         <span class="error_messages" id="about_me_error"></span>
     </div>
 
-
-    <div>
-            <label for="profile_photo">Profile Photo:</label>
-            <input type="file" id="profile_photo" name="profile_photo">
-            <span class="error_messages" id="profile_photo_error"></span>
+        <div>
+        <label for="profile_photo">Profile Photo:</label>
+        <input type="file" id="profile_photo" name="profile_photo" accept="image/*" onchange="previewImage(event)" value="<?php echo $storedImagePath; ?>">
+        <span class="error_messages" id="profile_photo_error"></span>
         </div>
 
+        <!-- Preview the selected image -->
+        <div id="imagePreview">
+         <img id="profileImage" src="<?php echo !empty($default_profile_photo) ? $default_profile_photo : ''; ?>" 
+        alt="Selected Profile Photo" style="<?php echo !empty($default_profile_photo) ? '' : 'display:none;'; ?>" />
+        </div>
 
      <?php if ($default_address): ?>
      <button id="updateProfileBtn" type="submit" class="profile_button" value="update" name="action">Update Profile</button>

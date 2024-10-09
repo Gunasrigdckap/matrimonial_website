@@ -288,6 +288,22 @@ function isEmpty(value) {
 
 
 
+function previewImage(event) {
+    let imageInput = event.target;
+    let file = imageInput.files[0];
+    
+    if (file) {
+        let reader = new FileReader();
+        reader.onload = function(e) {
+            let imageElement = document.getElementById('profileImage');
+            imageElement.src = e.target.result;
+            imageElement.style.display = 'block'; // Show the image
+        };
+        reader.readAsDataURL(file); // Convert the file to a base64 string
+    }
+}
+
+
 
 
 //-------------------------------validateFamilyDetailsForm---------------------------------
@@ -443,18 +459,80 @@ $(document).ready(function() {
 });
 
 
+function updateRange() {
+    let minAge = document.getElementById('min-age');
+    let maxAge = document.getElementById('max-age');
+    let minAgeDisplay = document.getElementById('min-age-display');
+    let maxAgeDisplay = document.getElementById('max-age-display');
+
+    let minValue = parseInt(minAge.value);
+    let maxValue = parseInt(maxAge.value);
+
+    // Update the displayed values
+    minAgeDisplay.textContent = minValue;
+    maxAgeDisplay.textContent = maxValue;
+
+}
 
 
 
 
+document.addEventListener('DOMContentLoaded', initUserDetailsOverlay);
 
+function initUserDetailsOverlay() {
+    const overlay = document.getElementById('user-details-overlay');
+    const closeOverlay = document.getElementById('close-overlay');
+    const overlayContent = document.getElementById('overlay-user-details');
 
+    // Attach event listeners for the h5 tags to view profiles
+    attachViewProfileListeners(overlay, overlayContent);
 
+    // Close overlay on click of close button
+    closeOverlay.addEventListener('click', function() {
+        overlay.style.display = 'none';
+    });
 
+    // Close overlay when clicking outside the content area
+    window.addEventListener('click', function(event) {
+        if (event.target === overlay) {
+            overlay.style.display = 'none';
+        }
+    });
+}
 
+function attachViewProfileListeners(overlay, overlayContent) {
+    document.querySelectorAll('.view-profile-text').forEach(textElement => { 
+        textElement.addEventListener('click', function() {
+         
+            const userId = this.getAttribute('data-user-id');
+            
 
+            // Validate userId if necessary
+            if (!userId) {
+                console.error('User ID is not available.');
+                return;
+            }
 
+            // Fetch user details using AJAX
+            fetch('/views/getUserDetails.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `user_id=${userId}`
+            })
+            .then(response => response.text())
+            .then(data => {
+                overlayContent.innerHTML = data;  
+                overlay.style.display = 'block';  
+            })
+            .catch(error => {
+                console.error('Error fetching user details:', error);
+            });
+        });
+    });
+}
 
-
+// Show the overlay
 
 

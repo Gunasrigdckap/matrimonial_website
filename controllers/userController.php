@@ -18,6 +18,11 @@ class UserController
     $users = $this->userDetails->displayUsersDetails($filters, $offset, $itemsPerPage, $currentUserId);
     return $users;
 }
+  // Method to get user details by user ID
+  public function getUserDetailsById($userId)
+  {
+      return $this->userDetails->getUserDetailsById($userId);  // Calls model method
+  }
 
 }
 ?>

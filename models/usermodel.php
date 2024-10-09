@@ -17,9 +17,10 @@ class UserDetails
     {
         $sql = "
             SELECT 
+                r.register_id,
                 CONCAT(r.first_name, ' ', r.last_name) AS name, 
                 TIMESTAMPDIFF(YEAR, r.date_of_birth, CURDATE()) AS age, 
-                p.religion, 
+                p.religion,
                 p.mother_tongue, 
                 p.profile_photo
             FROM tbl_register r
@@ -73,4 +74,45 @@ class UserDetails
         $stmt->execute();
         return $stmt->fetchAll();
     }
+
+
+    // Get user details by user ID
+    public function getUserDetailsById($userId)
+    {
+        $sql = "
+            SELECT 
+                r.first_name, 
+                r.last_name, 
+                r.date_of_birth, 
+                TIMESTAMPDIFF(YEAR, r.date_of_birth, CURDATE()) AS age,
+                p.religion,
+                p.city,
+                p.country,
+                p.state,
+                p.hobbies,
+                p.caste, 
+                p.marital_status, 
+                p.mother_tongue, 
+                p.height, 
+                p.weight, 
+                p.education, 
+                p.occupation, 
+                p.income, 
+                p.profile_photo, 
+                p.about_me 
+            FROM tbl_register r
+            JOIN tbl_users_profiles p ON r.register_id = p.register_id
+            WHERE r.register_id = :userId
+        ";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+
+        // Execute the query
+        $stmt->execute();
+
+        // Fetch and return the result as an associative array
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
 }

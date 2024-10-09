@@ -15,10 +15,7 @@
 
         <!-- Include SweetAlert -->
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <style>
-        .progress-container { width: 80%; background-color: #f3f3f3; border-radius: 5px; margin-bottom: 20px; }
-        .progress-bar { height: 25px; background-color: #4caf50; width: 0%; border-radius: 5px; text-align: center; line-height: 25px; color: white; color: black; }
-    </style>
+    
 </head>
 <body>
     
@@ -27,21 +24,6 @@
 <?php require __DIR__ . '/partials/header/header.php'; ?>
 
 
-<!-- <div class="progress-container">
-    <div class="progress-bar">0%</div>
-</div> -->
-
-<div class="circular-progress">
-  <span class="progress-value">0%</span>
-  <div class="circle">
-    <div class="bar left">
-      <div class="progress"></div>
-    </div>
-    <div class="bar right">
-      <div class="progress"></div>
-    </div>
-  </div>
-</div>
 
     <form name="registerForm" action="/controllers/registerController.php" method="POST" onsubmit="return validateRegisterForm()">
         <div>

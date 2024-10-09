@@ -24,23 +24,27 @@ class RegisterController {
             $phoneNumber = $_POST['phone_number'];
             $gender = isset($_POST['gender']) ? $_POST['gender'] : null;  // Capture gender or set to null
             $dateOfBirth = $_POST['date_of_birth'];
-
+    
             // Insert the user data via the model
             $newRegisterId = $this->registerModel->insertUser($firstName, $lastName, $password, $email, $profileFor, $phoneNumber, $gender, $dateOfBirth);
-            
-            if ($newRegisterId) {
+    
+            if (is_numeric($newRegisterId)) {
                 // Start the session and store the register_id
                 session_start();
                 $_SESSION['register_id'] = $newRegisterId;  // Store register_id in the session
-
+    
                 // Redirect to the profile page
                 header("Location: /profile.php");
                 exit();  // This ensures the script stops after the redirect
+            } elseif ($newRegisterId === "Email already registered.") {
+                // Show an error message if the email is already registered
+                echo "<p style='color: red;'>Email already registered. Please use a different email address.</p>";
             } else {
                 echo "Error occurred during registration!";
             }
         }
     }
+    
 }
 
 // Initialize and run controller logic

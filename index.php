@@ -32,6 +32,7 @@ if (isset($_POST['delete_profile'])) {
     <link rel="stylesheet" href="/assets/css/index.css">
     <script src="/assets/js/register_login_validation.js"></script>
     <script src="/assets/js/validationUtils.js"></script>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 </head>
@@ -62,14 +63,19 @@ if (isset($_POST['delete_profile'])) {
                         <!-- <label><input type="radio" name="gender" value="other"> Other</label> -->
                     </div>
 
-                    <!-- Age Filter -->
-                    <div class="filter-group">
-                        <h3>Age</h3>
-                        <label for="age-min">Min Age: </label>
-                        <input type="number" id="age-min" name="age_min" min="19" max="100" value=""><br>
-                        <label for="age-max">Max Age: </label>
-                        <input type="number" id="age-max" name="age_max" min="19" max="100" value="">
+                <!-- Age Filter -->
+                <div class="filter-group">
+                    <h3>Age Range</h3>
+                    <div id="age-range-container">
+                        <input type="range" id="min-age" name="age_min" min="18" max="60" value="18" oninput="updateRange()">
+                        <input type="range" id="max-age" name="age_max" min="18" max="60" value="60" oninput="updateRange()">
                     </div>
+                    <div id="age-range-display">
+                        <span id="min-age-display">18</span> - <span id="max-age-display">60</span> years
+                    </div>
+                </div>
+
+
 
                     <!-- Religion Filter -->
                     <div class="filter-group">
@@ -110,6 +116,19 @@ if (isset($_POST['delete_profile'])) {
                     <!-- User cards will be dynamically inserted here -->
                 </div>
 
+
+                <!-- User Details Overlay -->
+<div id="user-details-overlay" class="overlay">
+    <div class="overlay-content">
+        <span id="close-overlay" class="close">&times;</span>
+        <div id="overlay-user-details">
+            <!-- User details will be loaded here via AJAX -->
+        </div>
+    </div>
+</div>
+
+
+
                 <!-- Pagination controls -->
                  <div class="pagination1">
                 <div class="pagination-controls">
@@ -133,7 +152,7 @@ if (isset($_POST['delete_profile'])) {
     <!-- Footer -->
     <!-- <footer>
         <div class="footer-container">
-            <p>&copy; 2023 WedBliss. All rights reserved.</p>
+            <p>&copy; 2024 WedBliss. All rights reserved.</p>
         </div>
     </footer> -->
 
@@ -185,7 +204,9 @@ if (isset($_POST['delete_profile'])) {
             loadUsers(currentPage);
         }
 
-    document.getElementById('reset-filters').addEventListener('click', function() {
+    document.getElementById('reset-filters').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent default form submission
+
     let form = document.getElementById('filter-form');
     
     // Manually reset all input fields
@@ -193,15 +214,26 @@ if (isset($_POST['delete_profile'])) {
     inputs.forEach(input => {
         if (input.type === 'checkbox' || input.type === 'radio') {
             input.checked = false;
+        } else if (input.type === 'range') {
+            if (input.id === 'min-age') {
+                input.value = input.min; 
+            } else if (input.id === 'max-age') {
+                input.value = input.max; 
+            }
         } else {
-            input.value = '';
+            input.value = ''; // Reset other input types
         }
     });
+
+    // Update displayed age range values
+    document.getElementById('min-age-display').textContent = document.getElementById('min-age').value;
+    document.getElementById('max-age-display').textContent = document.getElementById('max-age').value;
 
     // Reset current page and load users with no filters
     currentPage = 1;
     loadUsers(currentPage);
 });
+
 
     </script>
 

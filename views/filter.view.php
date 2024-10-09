@@ -36,13 +36,17 @@ $usersData = $profileModel->displayUsers($filters, $offset, $itemsPerPage, $curr
     if (!empty($usersData)) {
         foreach ($usersData as $userData) {
             echo '<div class="user-card">';
+            echo '<p class ="user-fav-icon"><i class="fa-regular fa-heart"></i></p>';
             echo '<div class="profile-photo"><img src="' . $userData['profile_photo'] . '" alt="User Image"></div>';
             echo '<div class="user-details">';
             echo '<h3>' . $userData['name'] . '</h3>';
             echo '<p>Age: ' . $userData['age'] . '<br>';
             echo 'Religion: ' . $userData['religion'] . '<br>';
-            echo 'Mother Tongue: ' . $userData['mother_tongue'] . '</p>';
-            echo '</div></div>';
+            echo 'Mother Tongue: ' . $userData['mother_tongue'] .'</p>'.'<br>';
+            // echo '<button onclick="initUserDetailsOverlay()" class="view-profile-btn" data-user-id="' . $userData['register_id'] . '">View Full Profile</button>';
+            echo '<h5 class="view-profile-text" onclick="initUserDetailsOverlay()" data-user-id="' . $userData['register_id'] . '">View Full Profile</h5>';
+            echo '</div></div>';        
+
         }
     } else {
         echo '<p>No users found matching the filter criteria.</p>';
