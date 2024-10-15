@@ -474,15 +474,15 @@ function updateRange() {
 
 }
 
-
+//---------------------UserDetailsOverlay------------------------
 
 
 document.addEventListener('DOMContentLoaded', initUserDetailsOverlay);
 
 function initUserDetailsOverlay() {
-    const overlay = document.getElementById('user-details-overlay');
-    const closeOverlay = document.getElementById('close-overlay');
-    const overlayContent = document.getElementById('overlay-user-details');
+    let overlay = document.getElementById('user-details-overlay');
+    let closeOverlay = document.getElementById('close-overlay');
+    let overlayContent = document.getElementById('overlay-user-details');
 
     // Attach event listeners for the h5 tags to view profiles
     attachViewProfileListeners(overlay, overlayContent);
@@ -504,7 +504,7 @@ function attachViewProfileListeners(overlay, overlayContent) {
     document.querySelectorAll('.view-profile-text').forEach(textElement => { 
         textElement.addEventListener('click', function() {
          
-            const userId = this.getAttribute('data-user-id');
+            let userId = this.getAttribute('data-user-id');
             
 
             // Validate userId if necessary
@@ -533,6 +533,100 @@ function attachViewProfileListeners(overlay, overlayContent) {
     });
 }
 
-// Show the overlay
 
+//-------------------------------fectch city and state---------------------------------
+
+function fetchStates(country) {
+    if (country === "") {
+        document.getElementById("state").disabled = true;
+        document.getElementById("city").disabled = true;
+        document.getElementById("state").innerHTML = '<option value="">Select State</option>';
+        document.getElementById("city").innerHTML = '<option value="">Select City</option>';
+        return;
+    }
+
+    // AJAX request to get states based on the selected country
+    fetch(`/controllers/fetchCitiesStates.php?country=${country}`)
+        .then(response => response.json())
+        .then(data => {
+            let stateDropdown = document.getElementById("state");
+            stateDropdown.disabled = false;
+            stateDropdown.innerHTML = '<option value="">Select State</option>';
+            data.forEach(state => {
+                stateDropdown.innerHTML += `<option value="${state}">${state}</option>`;
+            });
+
+            // Disable city dropdown until a state is selected
+            document.getElementById("city").disabled = true;
+            document.getElementById("city").innerHTML = '<option value="">Select City</option>';
+        });
+}
+
+function fetchCities(state) {
+    if (state === "") {
+        document.getElementById("city").disabled = true;
+        document.getElementById("city").innerHTML = '<option value="">Select City</option>';
+        return;
+    }
+
+    // AJAX request to get cities based on the selected state
+    fetch(`/controllers/fetchCitiesStates.php?state=${state}`)
+        .then(response => response.json())
+        .then(data => {
+            let cityDropdown = document.getElementById("city");
+            cityDropdown.disabled = false;
+            cityDropdown.innerHTML = '<option value="">Select City</option>';
+            data.forEach(city => {
+                cityDropdown.innerHTML += `<option value="${city}">${city}</option>`;
+            });
+        });
+}
+
+
+//-----------------toggleFavourite---------------------------
+function toggleFavourite(icon) {
+
+  
+    var userId = icon.dataset.userId; 
+    var profileId = icon.dataset.profileId; 
+
+    console.log("User ID:", userId);
+    console.log("Profile ID:", profileId); 
+
+    // Verify if userId and profileId are present
+    if (!userId || !profileId) {
+        console.error('Error: userId or profileId is missing!');
+        return;
+    }
+
+    // Create the POST request using fetch
+  fetch('/controllers/favouriteHandler.php', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: new URLSearchParams({
+        user_id: userId,
+        profile_id: profileId
+    })
+})
+.then(response => response.text()) 
+.then(responseText => {
+    console.log("Server Response:", responseText); 
+    let result = JSON.parse(responseText);
+    if (result.status === 'added') {
+        icon.classList.remove('fa-regular');
+        icon.classList.add('fa-solid','favorite');
+    } else if (result.status === 'removed') {
+        icon.classList.remove('fa-solid','favorite');
+        icon.classList.add('fa-regular'); 
+    } else {
+        console.warn('Unexpected response from server:', result.message);
+    }
+})
+.catch(error => {
+    console.error('Error toggling favourite:', error);
+});
+
+}
 

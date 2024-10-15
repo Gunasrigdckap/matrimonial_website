@@ -9,73 +9,74 @@ require_once '../models/profilemodel.php';
 
 $db = new dbConnection($config);
 $conn = $db->getConnection();
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $registerId = $_SESSION['register_id'];
 
     if (isset($registerId)) {
-        // Check which button was pressed
         if (isset($_POST['action'])) {
-            $action = $_POST['action']; 
+            $action = $_POST['action'];
 
-            // Handle profile photo upload
             $profilePhotoPath = null;
             if (isset($_FILES['profile_photo']) && $_FILES['profile_photo']['error'] === UPLOAD_ERR_OK) {
                 $photoTmpPath = $_FILES['profile_photo']['tmp_name'];
-                $photoName = $_FILES['profile_photo']['name'];
-                $uploadDir = __DIR__ . '/../uploads/profile_photos/';  // Directory to store profile photos
+                $photoName = preg_replace("/[^a-zA-Z0-9\.\-_]/", "", $_FILES['profile_photo']['name']); 
 
-                // Create the directory if it doesn't exist
+                $uploadDir = __DIR__ . '/../uploads/profile_photos/';
                 if (!file_exists($uploadDir)) {
                     mkdir($uploadDir, 0777, true);
                 }
-                
-                $profilePhotoPath = $uploadDir . basename($photoName);
 
-                // Move uploaded file to the desired directory
-                if (move_uploaded_file($photoTmpPath, $profilePhotoPath)) {
-                    // Store only relative path to avoid exposing server directory structure
-                    $profilePhotoPath = '/uploads/profile_photos/' . basename($photoName);
+                $allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif'];
+                $fileType = mime_content_type($photoTmpPath);
+
+                if (in_array($fileType, $allowedFileTypes)) {
+                    $profilePhotoPath = $uploadDir . basename($photoName);
+                    if (move_uploaded_file($photoTmpPath, $profilePhotoPath)) {
+                        $profilePhotoPath = '/uploads/profile_photos/' . basename($photoName);
+                    } else {
+                        echo "Error uploading the profile photo.";
+                        exit;
+                    }
                 } else {
-                    echo "Error uploading the profile photo.";
+                    echo "Invalid file type!";
                     exit;
                 }
             }
 
-            // Prepare profile data
+            // Sanitize inputs
             $profileData = [
-                'register_id' => $registerId,
-                'height' => $_POST['height'],
-                'weight' => $_POST['weight'],
-                'religion' => $_POST['religion'],
-                'caste' => $_POST['caste'],
-                'mother_tongue' => $_POST['mother_tongue'],
-                'marital_status' => $_POST['marital_status'],
-                'education' => $_POST['education'],
-                'occupation' => $_POST['occupation'],
-                'income' => $_POST['income'],
-                'address' => $_POST['address'],
-                'city' => $_POST['city'],
-                'state' => $_POST['state'],
-                'country' => $_POST['country'],
-                'hobbies' => $_POST['hobbies'],
-                'about_me' => $_POST['about_me'],
-                'profile_photo' => $profilePhotoPath  
+                'register_id' => htmlspecialchars($registerId),
+                'height' => htmlspecialchars($_POST['height']),
+                'weight' => htmlspecialchars($_POST['weight']),
+                'religion' => htmlspecialchars($_POST['religion']),
+                'caste' => htmlspecialchars($_POST['caste']),
+                'mother_tongue' => htmlspecialchars($_POST['mother_tongue']),
+                'marital_status' => htmlspecialchars($_POST['marital_status']),
+                'education' => htmlspecialchars($_POST['education']),
+                'occupation' => htmlspecialchars($_POST['occupation']),
+                'income' => htmlspecialchars($_POST['income']),
+                'address' => htmlspecialchars($_POST['address']),
+                'city' => htmlspecialchars($_POST['city']),
+                'state' => htmlspecialchars($_POST['state']),
+                'country' => htmlspecialchars($_POST['country']),
+                'hobbies' => htmlspecialchars($_POST['hobbies']),
+                'about_me' => htmlspecialchars($_POST['about_me']),
+                'profile_photo' => $profilePhotoPath
             ];
 
             $profileModel = new ProfileModel($conn);
 
             if ($action === 'update') {
-                // Update profile if it exists
                 if ($profileModel->updateProfile($profileData)) {
-                    header("Location:/views/current-user-profile-listing.view.php ");
+                    header("Location: /views/current-user-profile-listing.view.php");
+                    exit();
                 } else {
                     echo "Error occurred during profile update!";
                 }
             } elseif ($action === 'save') {
-                // Insert profile if it does not exist
                 if ($profileModel->insertProfile($profileData)) {
                     header("Location: /family_details.php");
+                    exit();
                 } else {
                     echo "Error occurred during profile insertion!";
                 }
@@ -84,8 +85,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         echo "Register ID not available!";
         header("Location: /register.php");
+        exit();
     }
 } else {
     header('Location: /login.php');
+    exit();
 }
 ?>

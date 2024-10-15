@@ -175,7 +175,40 @@ $default_profile_photo = isset($userProfile['profile_photo']) ? $userProfile['pr
     <span class="error_messages" id="income_error"></span>
     </div>
 
+
     <div>
+    <label for="country">Country:</label>
+    <select id="country" name="country" onchange="fetchStates(this.value)">
+        <option value="">Select Country</option>
+        <option value="india" <?php if($default_country == "india") echo "selected"; ?>>India</option>
+        <option value="usa" <?php if($default_country == "usa") echo "selected"; ?>>USA</option>
+        <!-- Add more countries as needed -->
+    </select>
+    <span class="error_messages" id="country_error"></span>
+</div>
+
+<div>
+    <label for="state">State:</label>
+    <select id="state" name="state" onchange="fetchCities(this.value)" disabled>
+        <option value="">Select State</option>
+        <!-- Dynamic state options will be loaded here -->
+        <option value="<?php echo htmlspecialchars($default_state); ?>" selected><?php echo htmlspecialchars($default_state); ?></option>
+    </select>
+    <span class="error_messages" id="state_error"></span>
+</div>
+
+<div>
+    <label for="city">City:</label>
+    <select id="city" name="city" disabled>
+        <option value="">Select City</option>
+        <!-- Dynamic city options will be loaded here -->
+        <option value="<?php echo htmlspecialchars($default_city); ?>" selected><?php echo htmlspecialchars($default_city); ?></option>
+    </select>
+    <span class="error_messages" id="city_error"></span>
+</div>
+
+
+    <!-- <div>
     <label for="country">Country:</label>
     <select id="country" name="country">
         <option value="">Select Country</option>
@@ -184,12 +217,10 @@ $default_profile_photo = isset($userProfile['profile_photo']) ? $userProfile['pr
         <option value="uk" <?php if($default_country == "uk") echo "selected"; ?>>UK</option>
         <option value="canada" <?php if($default_country == "canada") echo "selected"; ?>>Canada</option>
         <option value="australia" <?php if($default_country == "australia") echo "selected"; ?>>Australia</option>
-        <!-- Add more countries as needed -->
+      
     </select>
     <span class="error_messages" id="country_error"></span>
     </div>
-
-
 
  
     <div>
@@ -201,7 +232,7 @@ $default_profile_photo = isset($userProfile['profile_photo']) ? $userProfile['pr
         <option value="maharashtra" <?php if($default_state == "maharashtra") echo "selected"; ?>>Maharashtra</option>
         <option value="delhi" <?php if($default_state == "delhi") echo "selected"; ?>>Delhi</option>
         <option value="uttar_pradesh" <?php if($default_state == "uttar_pradesh") echo "selected"; ?>>Uttar Pradesh</option>
-        <!-- Add more states as needed -->
+    
     </select>
     <span class="error_messages" id="state_error"></span>
     </div>
@@ -215,10 +246,10 @@ $default_profile_photo = isset($userProfile['profile_photo']) ? $userProfile['pr
         <option value="bangalore" <?php if($default_city == "bangalore") echo "selected"; ?>>Bangalore</option>
         <option value="mumbai" <?php if($default_city == "mumbai") echo "selected"; ?>>Mumbai</option>
         <option value="delhi" <?php if($default_city == "delhi") echo "selected"; ?>>Delhi</option>
-        <!-- Add more cities as needed -->
+      
     </select>
     <span class="error_messages" id="city_error"></span>
-    </div>
+    </div> -->
 
     <div>
         <label for="address">Address:</label>

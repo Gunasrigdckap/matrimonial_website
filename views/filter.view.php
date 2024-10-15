@@ -31,26 +31,44 @@ $profileModel = new UserController($conn);
 $usersData = $profileModel->displayUsers($filters, $offset, $itemsPerPage, $currentUserId);
 
 
+// Render the user cards
+if (!empty($usersData)) {
+    foreach ($usersData as $userData) {
+        echo '<div class="user-card">';
+        
+        // Current User ID from the session
+        $currentUserId = $_SESSION['register_id'];
+        
+        // Profile Register User ID from the user data
+        $profileRegisterUserId = $userData['register_id'];
 
-    // Render the user cards
-    if (!empty($usersData)) {
-        foreach ($usersData as $userData) {
-            echo '<div class="user-card">';
-            echo '<p class ="user-fav-icon"><i class="fa-regular fa-heart"></i></p>';
-            echo '<div class="profile-photo"><img src="' . $userData['profile_photo'] . '" alt="User Image"></div>';
-            echo '<div class="user-details">';
-            echo '<h3>' . $userData['name'] . '</h3>';
-            echo '<p>Age: ' . $userData['age'] . '<br>';
-            echo 'Religion: ' . $userData['religion'] . '<br>';
-            echo 'Mother Tongue: ' . $userData['mother_tongue'] .'</p>'.'<br>';
-            // echo '<button onclick="initUserDetailsOverlay()" class="view-profile-btn" data-user-id="' . $userData['register_id'] . '">View Full Profile</button>';
-            echo '<h5 class="view-profile-text" onclick="initUserDetailsOverlay()" data-user-id="' . $userData['register_id'] . '">View Full Profile</h5>';
-            echo '</div></div>';        
-
-        }
-    } else {
-        echo '<p>No users found matching the filter criteria.</p>';
+        // Profile User ID from the user data
+        $profileUserId = $userData['profile_id'];
+        
+         // Heart icon for favoriting profiles
+         $heartClass = $userData['is_favourited'] ? 'fa-solid' : 'fa-regular'; // Determine heart icon class
+         echo '<p class="user-fav-icon">
+             <i class="' . $heartClass . ' fa-heart" 
+                data-user-id="' . $currentUserId . '" 
+                data-profile-id="' . $profileUserId . '" 
+                onclick="toggleFavourite(this)"></i>
+         </p>';
+  
+        // Profile photo
+        echo '<div class="profile-photo"><img src="' . htmlspecialchars($userData['profile_photo']) . '" alt="User Image"></div>';
+        
+        // User details
+        echo '<div class="user-details">';
+        echo '<h2 id="user-card-name">' . htmlspecialchars($userData['name']) . '</h2>';
+        echo '<p>Age: ' . htmlspecialchars($userData['age']) . '<br>';
+        echo 'Religion: ' . htmlspecialchars($userData['religion']) . '<br>';
+        echo 'Mother Tongue: ' . htmlspecialchars($userData['mother_tongue']) . '</p><br>';
+        echo '<h5 class="view-profile-text" onclick="initUserDetailsOverlay()" data-user-id="' . $profileRegisterUserId . '">View Full Profile</h5>';
+        echo '</div></div>';
     }
+} else {
+    echo '<p>No users found matching the filter criteria.</p>';
+}
 
-    exit;
+exit;
 }

@@ -16,16 +16,21 @@ class UserDetails
     public function displayUsersDetails($filters, $offset, $itemsPerPage, $currentUserId)
     {
         $sql = "
-            SELECT 
-                r.register_id,
-                CONCAT(r.first_name, ' ', r.last_name) AS name, 
-                TIMESTAMPDIFF(YEAR, r.date_of_birth, CURDATE()) AS age, 
-                p.religion,
-                p.mother_tongue, 
-                p.profile_photo
-            FROM tbl_register r
-            JOIN tbl_users_profiles p ON r.register_id = p.register_id
-            WHERE r.register_id != :currentUserId
+                SELECT 
+                    r.register_id, 
+                    CONCAT(r.first_name, ' ', r.last_name) AS name, 
+                    TIMESTAMPDIFF(YEAR, r.date_of_birth, CURDATE()) AS age, 
+                    p.religion, 
+                    p.mother_tongue, 
+                    p.profile_photo, 
+                    p.profile_id, 
+                    f.favourited_profile_id, 
+                    CASE WHEN f.favourited_profile_id IS NOT NULL THEN 1 ELSE 0 END AS is_favourited 
+                FROM tbl_register r 
+                JOIN tbl_users_profiles p ON r.register_id = p.register_id 
+                LEFT JOIN tbl_favourites f ON f.favourited_profile_id = p.profile_id AND f.register_id = :currentUserId 
+                WHERE r.register_id != :currentUserId 
+
         ";
 
         // Apply filters if provided
@@ -81,8 +86,7 @@ class UserDetails
     {
         $sql = "
             SELECT 
-                r.first_name, 
-                r.last_name, 
+                CONCAT(r.first_name, ' ', r.last_name) AS name, 
                 r.date_of_birth, 
                 TIMESTAMPDIFF(YEAR, r.date_of_birth, CURDATE()) AS age,
                 p.religion,
