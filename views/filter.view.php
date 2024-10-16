@@ -19,6 +19,9 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
         'age_max' => $_POST['age_max'] ?? null,
         'religion' => $_POST['religion'] ?? null,
         'caste' => $_POST['caste'] ?? null,
+        'occupation' => $_POST['occupation'] ?? null,
+        'income' => $_POST['income'] ?? null,
+        'filterFavorites' => $_POST['filterFavorites'] ?? null,
     ];
 
     // Pagination variables

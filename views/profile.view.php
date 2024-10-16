@@ -141,39 +141,41 @@ $default_profile_photo = isset($userProfile['profile_photo']) ? $userProfile['pr
         <span class="error_messages" id="education_error"></span>
     </div>
 
-    <!-- <div>
-        <label for="occupation">Occupation:</label>
-        <input type="text" id="occupation" name="occupation" value="<?php echo $default_occupation; ?>">
-        <span class="error_messages" id="occupation_error"></span>
-    </div> -->
     <div>
     <label for="occupation">Occupation:</label>
-    <select id="occupation" name="occupation">
-        <option value="">Select Occupation</option>
+    <select name="occupation" id="occupation">
+        <option value="">Any</option>
         <option value="doctor" <?php if($default_occupation == "doctor") echo "selected"; ?>>Doctor</option>
         <option value="engineer" <?php if($default_occupation == "engineer") echo "selected"; ?>>Engineer</option>
         <option value="teacher" <?php if($default_occupation == "teacher") echo "selected"; ?>>Teacher</option>
+        <option value="lawyer" <?php if($default_occupation == "lawyer") echo "selected"; ?>>Lawyer</option>
+        <option value="architect" <?php if($default_occupation == "architect") echo "selected"; ?>>Architect</option>
+        <option value="business" <?php if($default_occupation == "business") echo "selected"; ?>>Business</option>
+        <option value="accountant" <?php if($default_occupation == "accountant") echo "selected"; ?>>Accountant</option>
+        <option value="nurse" <?php if($default_occupation == "nurse") echo "selected"; ?>>Nurse</option>
+        <option value="civil_servant" <?php if($default_occupation == "civil_servant") echo "selected"; ?>>Civil Servant</option>
         <option value="other" <?php if($default_occupation == "other") echo "selected"; ?>>Other</option>
     </select>
     <span class="error_messages" id="occupation_error"></span>
 </div>
 
-    <!-- <div>
-        <label for="income">Income:</label>
-        <input type="text" id="income" name="income" value="<?php echo $default_income; ?>">
-        <span class="error_messages" id="income_error"></span>
-    </div> -->
-    <div>
-    <label for="income">Annual Income (in USD):</label>
+  
+<div>
+    <label for="income">Annual Income (in INR):</label>
     <select id="income" name="income">
         <option value="">Select Income Range</option>
-        <option value="0-20000" <?php if($default_income == "below-20000") echo "selected"; ?>>Below $20,000</option>
-        <option value="20000-50000" <?php if($default_income == "20000-50000") echo "selected"; ?>>$20,000 - $50,000</option>
-        <option value="50000-100000" <?php if($default_income == "50000-100000") echo "selected"; ?>>$50,000 - $100,000</option>
-        <option value="100000+" <?php if($default_income == "above-100000") echo "selected"; ?>>Above $100,000</option>
+        <option value="0-100000" <?php if($default_income == "below-1-lakh") echo "selected"; ?>>Below ₹1 Lakh</option>
+        <option value="100000-200000" <?php if($default_income == "1-2-lakhs") echo "selected"; ?>>₹1 Lakh - ₹2 Lakhs</option>
+        <option value="200000-300000" <?php if($default_income == "2-3-lakhs") echo "selected"; ?>>₹2 Lakhs - ₹3 Lakhs</option>
+        <option value="300000-400000" <?php if($default_income == "3-4-lakhs") echo "selected"; ?>>₹3 Lakhs - ₹4 Lakhs</option>
+        <option value="400000-500000" <?php if($default_income == "4-5-lakhs") echo "selected"; ?>>₹4 Lakhs - ₹5 Lakhs</option>
+        <option value="500000-1000000" <?php if($default_income == "5-10-lakhs") echo "selected"; ?>>₹5 Lakhs - ₹10 Lakhs</option>
+        <option value="1000000-2000000" <?php if($default_income == "10-20-lakhs") echo "selected"; ?>>₹10 Lakhs - ₹20 Lakhs</option>
+        <option value="2000000+" <?php if($default_income == "above-20-lakhs") echo "selected"; ?>>Above ₹20 Lakhs</option>
     </select>
     <span class="error_messages" id="income_error"></span>
-    </div>
+</div>
+
 
 
     <div>

@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/assets/css/login.css">
     <title>Login</title>
-    <!-- Include SweetAlert -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <form name="loginForm" action="/controllers/loginController.php" method="POST" onsubmit="return validateLoginForm()">
@@ -24,7 +22,15 @@
 
         <input type="submit" value="Login">
     </form>
+     <!-- Popup for error messages -->
+     <div class="popup" id="errorPopup">
+        <div class="popup-content">
+            <span class="close" id="closePopup">&times;</span>
+            <p id="errorMessage"></p>
+        </div>
+    </div>
     <script src="/assets/js//register_login_validation.js"></script>
     <script src="/assets/js/validationUtils.js"></script>
+    <script src="/assets/js/popupFunctionality.js"></script>
 </body>
 </html>

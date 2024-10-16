@@ -35,6 +35,8 @@ if (isset($_POST['delete_profile'])) {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="/assets/js/popupFunctionality.js"></script>
+    
 </head>
 
 <body>
@@ -103,6 +105,50 @@ if (isset($_POST['delete_profile'])) {
                         </select>
                     </div>
 
+                    <!-- Occupation Filter -->
+                    <div class="filter-group">
+                        <h3>Occupation</h3>
+                        <select name="occupation" id="occupation">
+                                <option value="">Any</option>
+                                <option value="doctor">Doctor</option>
+                                <option value="engineer">Engineer</option>
+                                <option value="teacher">Teacher</option>
+                                <option value="lawyer">Lawyer</option>
+                                <option value="architect">Architect</option>
+                                <option value="business">Business</option>
+                                <option value="accountant">Accountant</option>
+                                <option value="nurse">Nurse</option>
+                                <option value="civil_servant">Civil Servant</option>
+                                <option value="other">Other</option>
+                        </select>
+                    </div>
+                  <!-- Income Filter -->
+                    <div class="filter-group">
+                        <h3>Annual Income (in INR)</h3>
+                        <select name="income" id="income">
+                            <option value="">Any</option>
+                            <option value="0-100000">Below ₹1 Lakh</option>
+                            <option value="100000-200000">₹1 Lakh - ₹2 Lakhs</option>
+                            <option value="200000-300000">₹2 Lakhs - ₹3 Lakhs</option>
+                            <option value="300000-400000">₹3 Lakhs - ₹4 Lakhs</option>
+                            <option value="400000-500000">₹4 Lakhs - ₹5 Lakhs</option>
+                            <option value="500000-1000000">₹5 Lakhs - ₹10 Lakhs</option>
+                            <option value="1000000-2000000">₹10 Lakhs - ₹20 Lakhs</option>
+                            <option value="2000000+">Above ₹20 Lakhs</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Favorites Filter -->
+                  
+                    <div class="filter-group">
+                        <label for="filter-favorites">
+                            <input type="checkbox" id="filter-favorites" name="filterFavorites" value="1"> Show Only Favorites
+                        </label>
+                    </div>
+
+
+
+
                     <!-- Buttons -->
                     <div class="filter-buttons">
                         <button type="submit" class="btn-primary">Apply Filters</button>
@@ -118,14 +164,14 @@ if (isset($_POST['delete_profile'])) {
 
 
                 <!-- User Details Overlay -->
-<div id="user-details-overlay" class="overlay">
-    <div class="overlay-content">
-        <span id="close-overlay" class="close">&times;</span>
-        <div id="overlay-user-details">
-            <!-- User details will be loaded here via AJAX -->
-        </div>
-    </div>
-</div>
+            <div id="user-details-overlay" class="overlay">
+                <div class="overlay-content">
+                    <span id="close-overlay" class="close">&times;</span>
+                    <div id="overlay-user-details">
+                        <!-- User details will be loaded here via AJAX -->
+                    </div>
+                </div>
+            </div>
 
 
 
@@ -141,13 +187,15 @@ if (isset($_POST['delete_profile'])) {
                 </div>
             </div>
 
-        <?php else: ?>
-            <div class="not-logged-in">
-                <p>You must be logged in to view user profiles.</p>
-                <a href="/login.php" class="btn-login">Login Now</a>
+                <?php else: ?>
+                    <div class="not-logged-in">
+                        <p>You must be logged in to view user profiles.</p>
+                        <a href="/login.php" class="btn-login">Login Now</a>
+                    </div>
+                <?php endif; ?>
             </div>
-        <?php endif; ?>
-    </div>
+
+
 
     <!-- Footer -->
     <!-- <footer>
@@ -158,6 +206,7 @@ if (isset($_POST['delete_profile'])) {
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/assets/js/popupFunctionality.js"></script>
 
     <!-- AJAX and JavaScript for filters and pagination -->
     <script>

@@ -173,7 +173,7 @@ input[type="text"]:focus {
     padding: 20px;
     border-radius: 8px;
     width: 25%;
-    height: 706px;
+    /* height: 706px; */
     margin-top: 42px;
     max-width: 300px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -329,13 +329,12 @@ button#reset-filters:hover{
     left: 50%;
     transform: translate(-50%, -50%);
     /* background-color: white; */
-    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+    background-color: rgba(255, 255, 255, 0.9); 
     padding: 20px;
     width: 700px; 
     border-radius: 10px;
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
     text-align: left;
-    /* background: url('/uploads/matri.jpg');  */
     background: url('/uploads/blur-bg.jpg'); 
     background-size: cover;
 }
@@ -364,7 +363,7 @@ button#reset-filters:hover{
     border-radius: 10px;
     width: 220px;
     height: 220px;
-    object-fit: cover; /* Ensure image is centered and cropped */
+    object-fit: cover; 
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -373,13 +372,6 @@ button#reset-filters:hover{
     color: white;
 }
 
-/* .user-details h2 {
-    font-size: 24px;
-    color: #fff;
-    margin: 0;
-    font-weight: bold;
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
-} */
 
 .user-card #user-card-name {
     font-size: 20px;
@@ -442,20 +434,20 @@ button#reset-filters:hover{
 .pagination {
     display: flex;
     padding: 30px;
-    justify-content: center; /* Center the pagination */
-    margin: 20px 0; /* Space above and below the pagination */
+    justify-content: center; 
+    margin: 20px 0; 
 }
 
 /* Pagination List */
 .pagination ul {
-    list-style: none; /* Remove default list styling */
-    padding: 0; /* Remove padding */
-    display: flex; /* Use flexbox for horizontal alignment */
+    list-style: none; 
+    padding: 0; 
+    display: flex; 
 }
 
 /* Pagination Item */
 .pagination li {
-    margin: 0 5px; /* Space between pagination items */
+    margin: 0 5px;
 }
 
 /* Pagination Links */
@@ -539,5 +531,10 @@ button#reset-filters:hover{
     font-weight: bold;
 }
 .user-fav-icon .fa-heart{
-    color: red; 
+    color: rgb(141, 92, 195); 
+}
+
+
+.filter-group input[type="checkbox"] {
+    margin-right: 10px; 
 }
