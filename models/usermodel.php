@@ -26,10 +26,14 @@ class UserDetails
                 p.profile_id, 
                 f.favourited_profile_id, 
                 CASE WHEN f.favourited_profile_id IS NOT NULL THEN 1 ELSE 0 END AS is_favourited 
-            FROM tbl_register r 
-            JOIN tbl_users_profiles p ON r.register_id = p.register_id 
-            LEFT JOIN tbl_favourites f ON f.favourited_profile_id = p.profile_id AND f.register_id = :currentUserId 
-            WHERE r.register_id != :currentUserId
+            FROM 
+                tbl_register r 
+            JOIN 
+                tbl_users_profiles p ON r.register_id = p.register_id 
+            LEFT JOIN 
+                tbl_favourites f ON f.favourited_profile_id = p.profile_id AND f.register_id = :currentUserId 
+            WHERE 
+                 r.register_id != :currentUserId
         ";
     
         // Apply filters if provided
@@ -51,12 +55,21 @@ class UserDetails
         if (!empty($filters['occupation'])) {
             $sql .= " AND p.occupation = :occupation";
         }
+        if (!empty($filters['country'])) {
+            $sql .= " AND p.country = :country";
+        }
+        if (!empty($filters['state'])) {
+            $sql .= " AND p.state = :state";
+        }
+        if (!empty($filters['city'])) {
+            $sql .= " AND p.city = :city";
+        }
         if (!empty($filters['income'])) {
             if ($filters['income'] === '2000000+') {
-                // For 2000000+, check where the minimum part of the range is 2000000 or greater
+        
                 $sql .= " AND CAST(SUBSTRING_INDEX(p.income, '-', 1) AS UNSIGNED) >= 2000000";
             } else {
-                // For other income ranges like 200000-300000
+              
                 list($income_min, $income_max) = explode('-', $filters['income']);
                 $sql .= " AND CAST(SUBSTRING_INDEX(p.income, '-', 1) AS UNSIGNED) >= :income_min";
                 $sql .= " AND CAST(SUBSTRING_INDEX(p.income, '-', -1) AS UNSIGNED) <= :income_max";
@@ -96,6 +109,15 @@ class UserDetails
         }
         if (!empty($filters['occupation'])) {
             $stmt->bindParam(':occupation', $filters['occupation'], PDO::PARAM_STR);
+        }
+        if (!empty($filters['country'])) {
+            $stmt->bindParam(':country', $filters['country'], PDO::PARAM_STR);
+        }
+        if (!empty($filters['state'])) {
+            $stmt->bindParam(':state', $filters['state'], PDO::PARAM_STR);
+        }
+        if (!empty($filters['city'])) {
+            $stmt->bindParam(':city', $filters['city'], PDO::PARAM_STR);
         }
         if (!empty($filters['income']) && $filters['income'] !== '2000000+') {
             $stmt->bindParam(':income_min', $income_min, PDO::PARAM_INT);

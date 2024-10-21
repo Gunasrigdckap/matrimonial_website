@@ -57,7 +57,7 @@ class FavouritesModel {
             return json_encode(['status' => 'error', 'message' => 'Failed to add favourite']);
         }
 
-        return true; // Indicate success
+        return true; 
     }
 
     // Remove a profile from the user's favourites list

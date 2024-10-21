@@ -524,7 +524,8 @@ function attachViewProfileListeners(overlay, overlayContent) {
             .then(response => response.text())
             .then(data => {
                 overlayContent.innerHTML = data;  
-                overlay.style.display = 'block';  
+                overlay.style.display = 'block'; 
+
             })
             .catch(error => {
                 console.error('Error fetching user details:', error);

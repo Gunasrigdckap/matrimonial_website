@@ -137,6 +137,45 @@ if (isset($_POST['delete_profile'])) {
                             <option value="2000000+">Above ₹20 Lakhs</option>
                         </select>
                     </div>
+
+                    <div class="filter-group">
+                        <h3>Country</h3>
+                        <select name="country" id="country" onchange="fetchStates(this.value)">
+                            <option value="">Any</option>
+                            <option value="india">India</option>
+                            <option value="usa">USA</option>
+                            <!-- <option value="general">General</option>
+                            <option value="obc">OBC</option>
+                            <option value="sc">SC</option>
+                            <option value="st">ST</option>
+                            <option value="bc">BC</option> -->
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <h3>State</h3>
+                        <!-- <select name="state" id="state"> -->
+                        <select id="state" name="state" onchange="fetchCities(this.value)" disabled >
+                            <!-- <option value="">Any</option> -->
+                            <!-- <option value="general">General</option>
+                            <option value="obc">OBC</option>
+                            <option value="sc">SC</option>
+                            <option value="st">ST</option>
+                            <option value="bc">BC</option> -->
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <h3>City</h3>
+                        <select name="city" id="city" disabled> 
+                            <!-- <option value="">Any</option> -->
+                            <!-- <option value="general">General</option>
+                            <option value="obc">OBC</option>
+                            <option value="sc">SC</option>
+                            <option value="st">ST</option>
+                            <option value="bc">BC</option> -->
+                        </select>
+                    </div>
                     
                     <!-- Favorites Filter -->
                   
@@ -189,7 +228,7 @@ if (isset($_POST['delete_profile'])) {
 
                 <?php else: ?>
                     <div class="not-logged-in">
-                        <p>You must be logged in to view user profiles.</p>
+                        <p>please login to view user profiles.</p>
                         <a href="/login.php" class="btn-login">Login Now</a>
                     </div>
                 <?php endif; ?>
@@ -200,7 +239,7 @@ if (isset($_POST['delete_profile'])) {
     <!-- Footer -->
     <!-- <footer>
         <div class="footer-container">
-            <p>&copy; 2024 WedBliss. All rights reserved.</p>
+            <p>&copy; WedBliss. All rights reserved.</p>
         </div>
     </footer> -->
 
@@ -231,6 +270,15 @@ if (isset($_POST['delete_profile'])) {
                 .then(data => {
                     document.getElementById('user-container').innerHTML = data;
                     document.getElementById('pagination-buttons').textContent = currentPage;
+
+                    // let usersExist = document.querySelectorAll('.user-card').length > 0;
+
+            // Hide or show pagination based on whether users exist
+            // if (!usersExist) {
+            //     document.querySelector('.pagination1').style.display = 'none';
+            // } else {
+            //     document.querySelector('.pagination1').style.display = 'block';
+            // }
                 })
                 .catch(error => console.error('Error loading users:', error));
         }

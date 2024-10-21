@@ -21,6 +21,9 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
         'caste' => $_POST['caste'] ?? null,
         'occupation' => $_POST['occupation'] ?? null,
         'income' => $_POST['income'] ?? null,
+        'country' => $_POST['country'] ?? null,
+        'state' => $_POST['state'] ?? null,
+        'city' => $_POST['city']?? null,
         'filterFavorites' => $_POST['filterFavorites'] ?? null,
     ];
 
@@ -70,7 +73,11 @@ if (!empty($usersData)) {
         echo '</div></div>';
     }
 } else {
-    echo '<p>No users found matching the filter criteria.</p>';
+    echo ' <div class="no-data">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p>No users found matching the filter criteria.</p>
+            </div>';
+    
 }
 
 exit;

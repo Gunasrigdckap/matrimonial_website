@@ -27,6 +27,7 @@ class Register
         $stmt = $this->conn->prepare($query);
         
         // Bind the parameters
+        // $firstName = htmlspecialchars($firstName);  // Escape HTML characters
         $stmt->bindParam(':firstName', $firstName);
         $stmt->bindParam(':lastName', $lastName);
         $stmt->bindParam(':password', $password);
