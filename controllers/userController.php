@@ -19,9 +19,9 @@ class UserController
     return $users;
 }
   // Method to get user details by user ID
-  public function getUserDetailsById($userId)
+  public function getUserDetailsById($userId, $action)
   {
-      return $this->userDetails->getUserDetailsById($userId);  // Calls model method
+      return $this->userDetails->getUserDetailsById($userId,$action); 
   }
 
 }

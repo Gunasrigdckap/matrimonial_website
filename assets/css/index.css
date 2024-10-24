@@ -557,7 +557,8 @@ button#reset-filters:hover{
 /* Custom Scrollbar Styles */
 
 ::-webkit-scrollbar {
-    width: 4px; 
+    width: 3px; 
+    height: 2px;
 }
 
 ::-webkit-scrollbar-track {
@@ -590,4 +591,22 @@ button#reset-filters:hover{
 .no-data p {
     font-size: 16px;
     margin: 0;
+}
+
+/* pre-next-btn styles */
+
+
+
+.previous-next-buttons{
+    border: none;
+    color: white;
+    font-size: 20px;
+    background-color: black;
+    padding: 4px;
+    margin-left: 80px;
+    margin-top: 8px;
+}
+
+.previous-next-buttons:hover{
+color: rgb(179, 179, 179); 
 }

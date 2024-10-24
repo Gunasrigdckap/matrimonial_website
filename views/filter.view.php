@@ -27,6 +27,10 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
         'filterFavorites' => $_POST['filterFavorites'] ?? null,
     ];
 
+
+   
+
+
     // Pagination variables
     $currentPage = isset($_POST['current_page']) ? (int)$_POST['current_page'] : 1;
     $itemsPerPage = 6;

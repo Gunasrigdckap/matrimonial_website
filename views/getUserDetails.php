@@ -4,10 +4,12 @@ require __DIR__ . '/../controllers/userController.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_id'])) {
     $userId = $_POST['user_id'];
+    $action = $_POST['action'] ?? null;
+
     $userModel = new UserController($conn);
 
     // Fetch full details of the user
-    $userDetails = $userModel->getUserDetailsById($userId);
+    $userDetails = $userModel->getUserDetailsById($userId,$action);
 
     if ($userDetails) {
         echo '<div class="user-profile">';
@@ -19,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_id'])) {
         } else {
             echo '<img src="/default-profile.png" alt="Default Profile Image">';
         }
-        echo '</div>'; // Close profile-image div
+        echo '</div>'; 
 
         // Display user details
         echo '<div class="user-details">';
@@ -49,9 +51,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_id'])) {
       
 
         echo '<div class="user-detail-item"><strong>About Me:</strong> ' . $userDetails['about_me'] . '</div>';
+      
+       
+        echo '<button class="previous-next-buttons" onclick="pre(this)" data-user-id="' . ($userId) . '"><i class="fa-solid fa-backward"></i></button>';
+        echo '<button class="previous-next-buttons" onclick="next(this)" data-user-id="' . ($userId) . '"><i class="fa-solid fa-forward"></i></button>';
+                // Hidden input to store user ID
+        echo '<input type="hidden" id="new-user-id" value="' . htmlspecialchars($userDetails['register_id']) . '">';
+        
 
-        echo '</div>'; // Close user-details div
-        echo '</div>'; // Close user-profile div
+
+        echo '</div>'; 
+        echo '</div>'; 
 
     } else {
         echo 'User details not found.';

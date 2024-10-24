@@ -492,12 +492,7 @@ function initUserDetailsOverlay() {
         overlay.style.display = 'none';
     });
 
-    // Close overlay when clicking outside the content area
-    window.addEventListener('click', function(event) {
-        if (event.target === overlay) {
-            overlay.style.display = 'none';
-        }
-    });
+ 
 }
 
 function attachViewProfileListeners(overlay, overlayContent) {
@@ -534,6 +529,48 @@ function attachViewProfileListeners(overlay, overlayContent) {
     });
 }
 
+// -----------------------------pre and next----------------------------
+
+function pre(button) {
+    let userId = button.getAttribute('data-user-id');
+    console.log(userId);
+    fetchUserDetails(userId, 'previous');
+}
+
+function next(button) {
+    let userId = button.getAttribute('data-user-id');
+    console.log(userId);
+    fetchUserDetails(userId, 'next'); 
+}
+
+
+function fetchUserDetails(userId, action) {
+    if (!userId) {
+        console.error('User ID is not available.');
+        return;
+    }
+
+    // Fetch user details using AJAX
+    fetch('/views/getUserDetails.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `user_id=${userId}&action=${action}` 
+    })
+    .then(response => response.text())
+    .then(data => {
+      
+        let overlayContent = document.getElementById('overlay-user-details');
+        overlayContent.innerHTML = data;
+
+        let overlay = document.getElementById('user-details-overlay');
+        overlay.style.display = 'block'; 
+    })
+    .catch(error => {
+        console.error('Error fetching user details:', error);
+    });
+}
 
 //-------------------------------fectch city and state---------------------------------
 

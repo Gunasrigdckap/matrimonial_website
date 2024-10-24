@@ -1,5 +1,5 @@
 <?php
-session_start();
+// session_start();
 require __DIR__ . '/models/DB.php';
 require __DIR__ . '/controllers/userController.php';
 require __DIR__ .'/controllers/userProfileController.php';

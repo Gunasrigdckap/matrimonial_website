@@ -1,5 +1,7 @@
 
 <?php
+// error_reporting(E_ALL);
+// ini_set('display_errors', 1);
 
 
 class UserDetails
@@ -126,12 +128,14 @@ class UserDetails
     
         // Execute the query
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC); // Fetch all results as an associative array
-    }
+        return $stmt->fetchAll(PDO::FETCH_ASSOC); 
+        }
     
 
     // Get user details by user ID
-    public function getUserDetailsById($userId)
+    public function getUserDetailsById($userId,$action)
+
+    
     {
         $sql = "
             SELECT 
@@ -155,17 +159,29 @@ class UserDetails
                 p.about_me 
             FROM tbl_register r
             JOIN tbl_users_profiles p ON r.register_id = p.register_id
-            WHERE r.register_id = :userId
+            
         ";
+    
+   // Modify the query based on the action (previous/next)
+   if ($action === 'previous') {
+    $sql .= " WHERE r.register_id < :userId ORDER BY r.register_id DESC LIMIT 1";
+} elseif ($action === 'next') {
+    $sql .= " WHERE r.register_id > :userId ORDER BY r.register_id ASC LIMIT 1"; 
+} 
+else {
+    
+    $sql .= " WHERE r.register_id = :userId LIMIT 1";
+}
+
 
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
-
-        // Execute the query
+       
         $stmt->execute();
 
-        // Fetch and return the result as an associative array
         return $stmt->fetch(PDO::FETCH_ASSOC);
+
+        
     }
 
 }
