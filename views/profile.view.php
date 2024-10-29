@@ -210,48 +210,7 @@ $default_profile_photo = isset($userProfile['profile_photo']) ? $userProfile['pr
 </div>
 
 
-    <!-- <div>
-    <label for="country">Country:</label>
-    <select id="country" name="country">
-        <option value="">Select Country</option>
-        <option value="india" <?php if($default_country == "india") echo "selected"; ?>>India</option>
-        <option value="usa" <?php if($default_country == "usa") echo "selected"; ?>>USA</option>
-        <option value="uk" <?php if($default_country == "uk") echo "selected"; ?>>UK</option>
-        <option value="canada" <?php if($default_country == "canada") echo "selected"; ?>>Canada</option>
-        <option value="australia" <?php if($default_country == "australia") echo "selected"; ?>>Australia</option>
-      
-    </select>
-    <span class="error_messages" id="country_error"></span>
-    </div>
 
- 
-    <div>
-    <label for="state">State:</label>
-    <select id="state" name="state">
-        <option value="">Select State</option>
-        <option value="tamil_nadu" <?php if($default_state == "tamil_nadu") echo "selected"; ?>>Tamil Nadu</option>
-        <option value="karnataka" <?php if($default_state == "karnataka") echo "selected"; ?>>Karnataka</option>
-        <option value="maharashtra" <?php if($default_state == "maharashtra") echo "selected"; ?>>Maharashtra</option>
-        <option value="delhi" <?php if($default_state == "delhi") echo "selected"; ?>>Delhi</option>
-        <option value="uttar_pradesh" <?php if($default_state == "uttar_pradesh") echo "selected"; ?>>Uttar Pradesh</option>
-    
-    </select>
-    <span class="error_messages" id="state_error"></span>
-    </div>
-
-    <div>
-    <label for="city">City:</label>
-    <select id="city" name="city">
-        <option value="">Select City</option>
-        <option value="chennai" <?php if($default_city == "chennai") echo "selected"; ?>>Chennai</option>
-        <option value="trichy" <?php if($default_city == "trichy") echo "selected"; ?>>Trichy</option>
-        <option value="bangalore" <?php if($default_city == "bangalore") echo "selected"; ?>>Bangalore</option>
-        <option value="mumbai" <?php if($default_city == "mumbai") echo "selected"; ?>>Mumbai</option>
-        <option value="delhi" <?php if($default_city == "delhi") echo "selected"; ?>>Delhi</option>
-      
-    </select>
-    <span class="error_messages" id="city_error"></span>
-    </div> -->
 
     <div>
         <label for="address">Address:</label>

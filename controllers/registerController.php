@@ -10,7 +10,7 @@ class RegisterController {
     private $registerModel;
 
     public function __construct($db) {
-        $this->registerModel = new Register($db); // Pass the DB connection to the model
+        $this->registerModel = new Register($db); 
     }
 
     public function registerUser() {
@@ -31,16 +31,15 @@ class RegisterController {
             if (is_numeric($newRegisterId)) {
                 // Start the session and store the register_id
                 session_start();
-                $_SESSION['register_id'] = $newRegisterId;  // Store register_id in the session
+                $_SESSION['register_id'] = $newRegisterId;
     
-                // Redirect to the profile page
                 header("Location: /profile.php");
-                exit();  // This ensures the script stops after the redirect
+                exit();  
             } elseif ($newRegisterId === "Email already registered.") {
-                // Show an error message if the email is already registered
+              
                 echo "<p style='color: red;'>Email already registered. Please use a different email address.</p>";
             } else {
-                echo "Error occurred during registration!";
+                echo "registration error!";
             }
         }
     }

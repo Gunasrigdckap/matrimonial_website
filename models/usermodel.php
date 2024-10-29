@@ -1,7 +1,6 @@
 
+
 <?php
-// error_reporting(E_ALL);
-// ini_set('display_errors', 1);
 
 
 class UserDetails
@@ -133,14 +132,18 @@ class UserDetails
     
 
     // Get user details by user ID
-    public function getUserDetailsById($userId,$action)
+    public function getUserDetailsById($userId,$action){
 
-    
-    {
+
+
+        session_start();
+        $session_register_id = $_SESSION['register_id'] ;
+
         $sql = "
             SELECT 
                 CONCAT(r.first_name, ' ', r.last_name) AS name, 
                 r.date_of_birth, 
+                r.register_id,
                 TIMESTAMPDIFF(YEAR, r.date_of_birth, CURDATE()) AS age,
                 p.religion,
                 p.city,
@@ -164,19 +167,24 @@ class UserDetails
     
    // Modify the query based on the action (previous/next)
    if ($action === 'previous') {
-    $sql .= " WHERE r.register_id < :userId ORDER BY r.register_id DESC LIMIT 1";
-} elseif ($action === 'next') {
-    $sql .= " WHERE r.register_id > :userId ORDER BY r.register_id ASC LIMIT 1"; 
-} 
-else {
+    $sql .= " WHERE r.register_id < :userId AND r.register_id != :session_register_id  ORDER BY r.register_id DESC LIMIT 1";
+    }  
+    elseif ($action === 'next') {
+    $sql .= " WHERE r.register_id > :userId  AND r.register_id != :session_register_id ORDER BY r.register_id ASC LIMIT 1"; 
+    } 
+    else {
     
     $sql .= " WHERE r.register_id = :userId LIMIT 1";
-}
+    }
 
 
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
-       
+
+        if($action === 'next' || $action === 'previous') {
+        $stmt->bindParam(':session_register_id', $session_register_id, PDO::PARAM_INT);
+        }
+
         $stmt->execute();
 
         return $stmt->fetch(PDO::FETCH_ASSOC);

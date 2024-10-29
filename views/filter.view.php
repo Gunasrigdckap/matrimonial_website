@@ -56,7 +56,7 @@ if (!empty($usersData)) {
         $profileUserId = $userData['profile_id'];
         
          // Heart icon for favoriting profiles
-         $heartClass = $userData['is_favourited'] ? 'fa-solid' : 'fa-regular'; // Determine heart icon class
+         $heartClass = $userData['is_favourited'] ? 'fa-solid' : 'fa-regular'; 
          echo '<p class="user-fav-icon">
              <i class="' . $heartClass . ' fa-heart" 
                 data-user-id="' . $currentUserId . '" 

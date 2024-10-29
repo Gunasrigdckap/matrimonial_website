@@ -2,18 +2,18 @@
 // session_start();
 require __DIR__ . '/models/DB.php';
 require __DIR__ . '/controllers/userController.php';
-require __DIR__ .'/controllers/userProfileController.php';
+require __DIR__ . '/controllers/userProfileController.php';
 
 $userid = isset($_SESSION["register_id"]) ? $_SESSION["register_id"] : null;
 
 
 // Delete profile logic
 if (isset($_POST['delete_profile'])) {
-    $profileController = new  UserProfileController($conn); 
-    
+    $profileController = new  UserProfileController($conn);
+
     if ($profileController->deleteProfile($userid)) {
         session_destroy(); // Clear session
-        header("Location: /login.php?message=Profile deleted successfully."); 
+        header("Location: /login.php?message=Profile deleted successfully.");
         exit();
     } else {
         echo "Error deleting profile.";
@@ -36,7 +36,7 @@ if (isset($_POST['delete_profile'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="/assets/js/popupFunctionality.js"></script>
-    
+
 </head>
 
 <body>
@@ -60,28 +60,32 @@ if (isset($_POST['delete_profile'])) {
                     <!-- Gender Filter -->
                     <div class="filter-group">
                         <h3>Gender</h3>
-                        <label><input type="radio" name="gender" value="male"> Male</label><br>
-                        <label><input type="radio" name="gender" value="female"> Female</label>
-                        <!-- <label><input type="radio" name="gender" value="other"> Other</label> -->
+
+                        <div id="gender-options">
+                            <label><input type="radio" name="gender" value="male"> Male</label><br>
+                            <label><input type="radio" name="gender" value="female"> Female</label>
+                            <!-- <label><input type="radio" name="gender" value="other"> Other</label> -->
+                        </div>
+
                     </div>
 
-                <!-- Age Filter -->
-                <div class="filter-group">
-                    <h3>Age Range</h3>
-                    <div id="age-range-container">
-                        <input type="range" id="min-age" name="age_min" min="18" max="60" value="18" oninput="updateRange()">
-                        <input type="range" id="max-age" name="age_max" min="18" max="60" value="60" oninput="updateRange()">
+                    <!-- Age Filter -->
+                    <div class="filter-group">
+                        <h3>Age Range</h3>
+                        <div id="age-range-container">
+                            <input type="range" id="min-age" name="age_min" min="18" max="60" value="18" oninput="updateRange()">
+                            <input type="range" id="max-age" name="age_max" min="18" max="60" value="60" oninput="updateRange()">
+                        </div>
+                        <div id="age-range-display">
+                            <span id="min-age-display">18</span> - <span id="max-age-display">60</span> years
+                        </div>
                     </div>
-                    <div id="age-range-display">
-                        <span id="min-age-display">18</span> - <span id="max-age-display">60</span> years
-                    </div>
-                </div>
 
 
 
                     <!-- Religion Filter -->
                     <div class="filter-group">
-                        <h3>Religion</h3>
+                        <h3 style="margin-top: 20px;">Religion</h3>
                         <select name="religion" id="religion">
                             <option value="">Any</option>
                             <option value="hindu">Hindu</option>
@@ -109,20 +113,20 @@ if (isset($_POST['delete_profile'])) {
                     <div class="filter-group">
                         <h3>Occupation</h3>
                         <select name="occupation" id="occupation">
-                                <option value="">Any</option>
-                                <option value="doctor">Doctor</option>
-                                <option value="engineer">Engineer</option>
-                                <option value="teacher">Teacher</option>
-                                <option value="lawyer">Lawyer</option>
-                                <option value="architect">Architect</option>
-                                <option value="business">Business</option>
-                                <option value="accountant">Accountant</option>
-                                <option value="nurse">Nurse</option>
-                                <option value="civil_servant">Civil Servant</option>
-                                <option value="other">Other</option>
+                            <option value="">Any</option>
+                            <option value="doctor">Doctor</option>
+                            <option value="engineer">Engineer</option>
+                            <option value="teacher">Teacher</option>
+                            <option value="lawyer">Lawyer</option>
+                            <option value="architect">Architect</option>
+                            <option value="business">Business</option>
+                            <option value="accountant">Accountant</option>
+                            <option value="nurse">Nurse</option>
+                            <option value="civil_servant">Civil Servant</option>
+                            <option value="other">Other</option>
                         </select>
                     </div>
-                  <!-- Income Filter -->
+                    <!-- Income Filter -->
                     <div class="filter-group">
                         <h3>Annual Income (in INR)</h3>
                         <select name="income" id="income">
@@ -155,7 +159,7 @@ if (isset($_POST['delete_profile'])) {
                     <div class="filter-group">
                         <h3>State</h3>
                         <!-- <select name="state" id="state"> -->
-                        <select id="state" name="state" onchange="fetchCities(this.value)" disabled >
+                        <select id="state" name="state" onchange="fetchCities(this.value)" disabled>
                             <!-- <option value="">Any</option> -->
                             <!-- <option value="general">General</option>
                             <option value="obc">OBC</option>
@@ -167,7 +171,7 @@ if (isset($_POST['delete_profile'])) {
 
                     <div class="filter-group">
                         <h3>City</h3>
-                        <select name="city" id="city" disabled> 
+                        <select name="city" id="city" disabled>
                             <!-- <option value="">Any</option> -->
                             <!-- <option value="general">General</option>
                             <option value="obc">OBC</option>
@@ -176,9 +180,9 @@ if (isset($_POST['delete_profile'])) {
                             <option value="bc">BC</option> -->
                         </select>
                     </div>
-                    
+
                     <!-- Favorites Filter -->
-                  
+
                     <div class="filter-group">
                         <label for="filter-favorites">
                             <input type="checkbox" id="filter-favorites" name="filterFavorites" value="1"> Show Only Favorites
@@ -203,36 +207,36 @@ if (isset($_POST['delete_profile'])) {
 
 
                 <!-- User Details Overlay -->
-            <div id="user-details-overlay" class="overlay">
-                <div class="overlay-content">
-                    <span id="close-overlay" class="close">&times;</span>
-                    <div id="overlay-user-details">
-                        <!-- User details will be loaded here via AJAX -->
+                <div id="user-details-overlay" class="overlay">
+                    <div class="overlay-content">
+                        <span id="close-overlay" class="close">&times;</span>
+                        <div id="overlay-user-details">
+                            <!-- User details will be loaded here via AJAX -->
+                        </div>
                     </div>
                 </div>
-            </div>
 
 
 
                 <!-- Pagination controls -->
-                 <div class="pagination1">
-                <div class="pagination-controls">
-                    <button id="prev-page" class="btn-pagination">Previous</button>
-                    <div class="pagination-numbers">
-                        <span id="pagination-buttons"></span>
+                <div class="pagination1">
+                    <div class="pagination-controls">
+                        <button id="prev-page" class="btn-pagination">Previous</button>
+                        <div class="pagination-numbers">
+                            <span id="pagination-buttons"></span>
+                        </div>
+                        <button id="next-page" class="btn-pagination">Next</button>
                     </div>
-                    <button id="next-page" class="btn-pagination">Next</button>
-                </div>
                 </div>
             </div>
 
-                <?php else: ?>
-                    <div class="not-logged-in">
-                        <p>please login to view user profiles.</p>
-                        <a href="/login.php" class="btn-login">Login Now</a>
-                    </div>
-                <?php endif; ?>
+        <?php else: ?>
+            <div class="not-logged-in">
+                <p>please login to view user profiles.</p>
+                <a href="/login.php" class="btn-login">Login Now</a>
             </div>
+        <?php endif; ?>
+    </div>
 
 
 
@@ -273,12 +277,12 @@ if (isset($_POST['delete_profile'])) {
 
                     // let usersExist = document.querySelectorAll('.user-card').length > 0;
 
-            // Hide or show pagination based on whether users exist
-            // if (!usersExist) {
-            //     document.querySelector('.pagination1').style.display = 'none';
-            // } else {
-            //     document.querySelector('.pagination1').style.display = 'block';
-            // }
+                    // Hide or show pagination based on whether users exist
+                    // if (!usersExist) {
+                    //     document.querySelector('.pagination1').style.display = 'none';
+                    // } else {
+                    //     document.querySelector('.pagination1').style.display = 'block';
+                    // }
                 })
                 .catch(error => console.error('Error loading users:', error));
         }
@@ -301,39 +305,39 @@ if (isset($_POST['delete_profile'])) {
             loadUsers(currentPage);
         }
 
-    document.getElementById('reset-filters').addEventListener('click', function(event) {
-    event.preventDefault(); // Prevent default form submission
+        document.getElementById('reset-filters').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default form submission
 
-    let form = document.getElementById('filter-form');
-    
-    // Manually reset all input fields
-    let inputs = form.querySelectorAll('input, select');
-    inputs.forEach(input => {
-        if (input.type === 'checkbox' || input.type === 'radio') {
-            input.checked = false;
-        } else if (input.type === 'range') {
-            if (input.id === 'min-age') {
-                input.value = input.min; 
-            } else if (input.id === 'max-age') {
-                input.value = input.max; 
-            }
-        } else {
-            input.value = ''; // Reset other input types
-        }
-    });
+            let form = document.getElementById('filter-form');
 
-    // Update displayed age range values
-    document.getElementById('min-age-display').textContent = document.getElementById('min-age').value;
-    document.getElementById('max-age-display').textContent = document.getElementById('max-age').value;
+            // Manually reset all input fields
+            let inputs = form.querySelectorAll('input, select');
+            inputs.forEach(input => {
+                if (input.type === 'checkbox' || input.type === 'radio') {
+                    input.checked = false;
+                } else if (input.type === 'range') {
+                    if (input.id === 'min-age') {
+                        input.value = input.min;
+                    } else if (input.id === 'max-age') {
+                        input.value = input.max;
+                    }
+                } else {
+                    input.value = ''; // Reset other input types
+                }
+            });
 
-    // Reset current page and load users with no filters
-    currentPage = 1;
-    loadUsers(currentPage);
-});
+            // Update displayed age range values
+            document.getElementById('min-age-display').textContent = document.getElementById('min-age').value;
+            document.getElementById('max-age-display').textContent = document.getElementById('max-age').value;
 
-
+            // Reset current page and load users with no filters
+            currentPage = 1;
+            loadUsers(currentPage);
+        });
     </script>
 
 </body>
 
 </html>
+
+

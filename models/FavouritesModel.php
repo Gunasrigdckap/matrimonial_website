@@ -70,9 +70,9 @@ class FavouritesModel {
         // Execute the delete statement
         if (!$stmt->execute()) {
             error_log("Failed to remove favourite: " . print_r($stmt->errorInfo(), true));
-            return false; // Indicate failure
+            return false; // failure
         }
 
-        return true; // Indicate success
+        return true; //  success
     }
 }

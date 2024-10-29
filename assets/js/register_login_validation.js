@@ -484,7 +484,7 @@ function initUserDetailsOverlay() {
     let closeOverlay = document.getElementById('close-overlay');
     let overlayContent = document.getElementById('overlay-user-details');
 
-    // Attach event listeners for the h5 tags to view profiles
+   
     attachViewProfileListeners(overlay, overlayContent);
 
     // Close overlay on click of close button
@@ -520,6 +520,14 @@ function attachViewProfileListeners(overlay, overlayContent) {
             .then(data => {
                 overlayContent.innerHTML = data;  
                 overlay.style.display = 'block'; 
+
+                 let newUserId = overlayContent.querySelector('.user-profile').getAttribute('data-user-id');
+                 console.log('Fetched New User ID:', newUserId);
+ 
+                 // Update the "previous" and "next" buttons with the new user_id
+                 document.querySelectorAll('.previous-next-buttons').forEach(button => {
+                     button.setAttribute('data-user-id', newUserId);
+                 });
 
             })
             .catch(error => {
@@ -562,15 +570,32 @@ function fetchUserDetails(userId, action) {
     .then(data => {
       
         let overlayContent = document.getElementById('overlay-user-details');
-        overlayContent.innerHTML = data;
+        overlayContent.innerHTML = data;  
 
-        let overlay = document.getElementById('user-details-overlay');
-        overlay.style.display = 'block'; 
+        let userProfileElement = overlayContent.querySelector('.user-profile');
+
+        if (userProfileElement) {
+            let newUserId = userProfileElement.getAttribute('data-user-id');
+            console.log('New User ID:', newUserId);
+
+          
+            document.querySelectorAll('.previous-next-buttons').forEach(button => {
+                button.setAttribute('data-user-id', newUserId);
+            });
+        } else {
+            console.error('Error: user-profile element not found');
+        }
     })
     .catch(error => {
-        console.error('Error fetching user details:', error);
+        console.error('Error user details:', error);
     });
 }
+
+
+// ------------------------------------------------------------------------------
+
+
+
 
 //-------------------------------fectch city and state---------------------------------
 
